@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TWhseMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TWhse" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="code" property="code" jdbcType="NVARCHAR" />
+    <result column="name" property="name" jdbcType="NVARCHAR" />
+    <result column="addr1" property="addr1" jdbcType="NVARCHAR" />
+    <result column="addr2" property="addr2" jdbcType="NVARCHAR" />
+    <result column="addr3" property="addr3" jdbcType="NVARCHAR" />
+    <result column="city" property="city" jdbcType="NVARCHAR" />
+    <result column="state" property="state" jdbcType="NVARCHAR" />
+    <result column="zip" property="zip" jdbcType="NVARCHAR" />
+    <result column="phone" property="phone" jdbcType="NVARCHAR" />
+    <result column="fax" property="fax" jdbcType="NVARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="NVARCHAR" />
+    <result column="country_name" property="countryName" jdbcType="NVARCHAR" />
+    <result column="http_address" property="httpAddress" jdbcType="NVARCHAR" />
+  </resultMap>
+</mapper>

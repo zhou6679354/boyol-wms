@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TReceiptMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TReceipt" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="receipt_identity" property="receiptIdentity" jdbcType="INTEGER" />
+    <result column="receipt_id" property="receiptId" jdbcType="NVARCHAR" />
+    <result column="vendor_code" property="vendorCode" jdbcType="NVARCHAR" />
+    <result column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <result column="receipt_date" property="receiptDate" jdbcType="TIMESTAMP" />
+    <result column="scac_code" property="scacCode" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="NCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <result column="schedule_number" property="scheduleNumber" jdbcType="INTEGER" />
+    <result column="qty_received" property="qtyReceived" jdbcType="DOUBLE" />
+    <result column="qty_damaged" property="qtyDamaged" jdbcType="DOUBLE" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="pack_slip" property="packSlip" jdbcType="NVARCHAR" />
+    <result column="fork_id" property="forkId" jdbcType="NVARCHAR" />
+    <result column="tran_status" property="tranStatus" jdbcType="NCHAR" />
+    <result column="receipt_uom" property="receiptUom" jdbcType="NVARCHAR" />
+    <result column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="INTEGER" />
+    <result column="hold_reason_id" property="holdReasonId" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="cabinet_number" property="cabinetNumber" jdbcType="NVARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="VARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="box_num" property="boxNum" jdbcType="DOUBLE" />
+    <result column="bulk_num" property="bulkNum" jdbcType="DOUBLE" />
+  </resultMap>
+</mapper>

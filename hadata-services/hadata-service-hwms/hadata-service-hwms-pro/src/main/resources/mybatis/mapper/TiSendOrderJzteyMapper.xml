@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TiSendOrderJzteyMapper">
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TiSendOrderJztey">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="NVARCHAR" property="id" />
+    <result column="master_id" jdbcType="NVARCHAR" property="masterId" />
+    <result column="unit_in_code" jdbcType="NVARCHAR" property="unitInCode" />
+    <result column="salesman" jdbcType="NVARCHAR" property="salesman" />
+    <result column="dep_in_code" jdbcType="NVARCHAR" property="depInCode" />
+    <result column="order_type" jdbcType="NVARCHAR" property="orderType" />
+    <result column="document_type" jdbcType="NVARCHAR" property="documentType" />
+    <result column="sales_type" jdbcType="NVARCHAR" property="salesType" />
+    <result column="dis_type" jdbcType="NVARCHAR" property="disType" />
+    <result column="cost_price" jdbcType="NVARCHAR" property="costPrice" />
+    <result column="call_state" jdbcType="NVARCHAR" property="callState" />
+    <result column="return_cause" jdbcType="NVARCHAR" property="returnCause" />
+    <result column="return_category" jdbcType="NVARCHAR" property="returnCategory" />
+    <result column="mass_state" jdbcType="NVARCHAR" property="massState" />
+    <result column="settlement_price" jdbcType="NVARCHAR" property="settlementPrice" />
+    <result column="make_date" jdbcType="NVARCHAR" property="makeDate" />
+    <result column="validity_date" jdbcType="NVARCHAR" property="validityDate" />
+    <result column="box_number" jdbcType="NVARCHAR" property="boxNumber" />
+  </resultMap>
+	<select id="selectOutBoundsToJztey" parameterType="HashMap" resultType="java.util.HashMap">
+    select
+	a.order_number,
+	a.unit_in_code,
+	a.order_date,
+	a.dep_in_code,
+	a.sale_name,
+	a.alt_item_number,
+	a.tran_qty,
+	a.unit_price,
+	a.lot_number,
+	a.prod_date,
+	a.exp_date,
+	a.order_type,
+	a.ext_code,
+	a.long_client_code,
+	a.order_type_desc,
+	row_number () over (
+		partition by a.order_number
+		order by
+			a.line_number
+	) as line_number
+from
+	(
+		select
+			o.order_number,
+			jz.unit_in_code,
+			convert (varchar(100), o.order_date, 23) order_date,
+			jz.dep_in_code,
+			jz.salesman as sale_name,
+			itm.alt_item_number,
+			sum (ttl.tran_qty) tran_qty,
+			od.unit_price,
+			ttl.lot_number,
+			convert(varchar(20),
+				convert(datetime,dbo.usf_HT_get_dynamic_attributes (
+				'Production Date',
+				ttl.stored_attribute_id
+			)),23) as prod_date,
+			convert (
+				varchar (20),
+				ttl.end_tran_date,
+				23
+			) as exp_date,
+			tsom.order_type order_type,
+			tc.ext_code,
+			tc.long_client_code,
+			jz.order_type as order_type_desc,
+			min(od.line_number) as line_number
+		FROM
+			t_tran_log ttl
+		LEFT JOIN t_pick_detail pd on ttl.control_number_2 = pd.pick_id
+		and ttl.wh_id = pd.wh_id
+		LEFT JOIN t_order_detail od on od.wh_id = pd.wh_id
+		and od.order_number = pd.order_number
+		and od.line_number = pd.line_number
+		LEFT JOIN t_order o on o.wh_id = od.wh_id
+		and o.order_number = od.order_number
+		LEFT JOIN ti_send_order_master tsom on tsom.id = o.interface_id
+		LEFT JOIN t_client tc on tc.wh_id = o.wh_id
+		and tc.client_code = o.client_code
+		LEFT JOIN ti_send_order_jztey jz on jz.master_id = o.interface_id
+		LEFT JOIN t_item_master itm on itm.wh_id = ttl.wh_id
+		and itm.item_number = pd.item_number
+		WHERE
+			ttl.tran_type = '340'
+		AND EXISTS (
+			SELECT
+				1
+			FROM
+				t_order od
+			WHERE
+				od.wh_id = (select top 1 wh_id from t_client where ext_code=#{branch} and long_client_code=#{store})
+			AND od.status = 'S'
+			AND od.wh_id = ttl.wh_id
+			AND od.order_number = ttl.control_number
+		)
+		AND o.order_number in (
+			select
+				top 30 order_number
+			from
+				t_order
+			where
+				wh_id = (select top 1 wh_id from t_client where ext_code=#{branch} and long_client_code=#{store})
+			and status = 'S'
+			and is_send_back = 0
+			and interface_id is not null
+		)
+		AND jz.is_consign =#{ type }
+		AND tc.ext_code=#{branch}
+	  	AND tc.long_client_code=#{store}
+		GROUP BY
+			o.order_number,
+			jz.unit_in_code,
+			o.order_date,
+			jz.dep_in_code,
+			itm.alt_item_number,
+			od.unit_price,
+			ttl.lot_number,
+			ttl.stored_attribute_id,
+			ttl.end_tran_date,
+			tsom.order_type,
+			tc.ext_code,
+			tc.long_client_code,
+			jz.order_type,
+			jz.salesman
+		UNION ALL
+			select
+				som.order_code as order_number,
+				soj.unit_in_code,
+				substring(som.order_date,1,10) as order_date,
+				soj.dep_in_code,
+				soj.salesman as sale_name,
+				sod.product_code as alt_item_number,
+				convert (int, sod.product_num) - (
+					select
+						isnull(sum (qty_shipped),0)
+					from
+						t_order_detail
+					where
+						order_number = som.order_code
+					and po_line_number = sod.id
+				) as tran_qty,
+				sod.product_unit_price as unit_price,
+				N'999999' as lot_number,
+				N'3000-01-01' as prod_date,
+				N'3000-01-01' as exp_date,
+				som.order_type,
+				tc.ext_code,
+				tc.long_client_code,
+				soj.order_type as order_type_desc,
+				600 + convert (int, sod.id) as line_number
+			FROM
+				ti_send_order_master som
+			JOIN ti_send_order_detail sod on sod.master_id = som.id
+			JOIN ti_send_order_jztey soj on soj.master_id = som.id
+			JOIN t_client tc on tc.client_code = som.cust_code
+			JOIN t_order o on o.order_number = som.order_code
+			where
+				o.order_number in (
+					select
+						top 30 order_number
+					from
+						t_order
+					where
+						wh_id = tc.wh_id
+					and status = 'S'
+					and is_send_back = 0
+					and interface_id is not null
+				)
+			AND som.proc_flag='1'
+			AND soj.is_consign =#{ type }
+			AND tc.ext_code=#{branch}
+	  		AND tc.long_client_code=#{store}
+			AND convert (int, sod.product_num) - (
+				select
+					isnull(sum (qty_shipped),0)
+				from
+					t_order_detail
+				where
+					order_number = som.order_code
+				and po_line_number = sod.id
+			) > 0
+	) a
+  </select>
+</mapper>

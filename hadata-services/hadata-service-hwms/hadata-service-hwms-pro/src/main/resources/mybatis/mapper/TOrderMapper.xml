@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TOrderMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TOrder" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="NVARCHAR" />
+    <result column="store_order_number" property="storeOrderNumber" jdbcType="NVARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="cust_po_number" property="custPoNumber" jdbcType="NVARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="NVARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="NVARCHAR" />
+    <result column="customer_fax" property="customerFax" jdbcType="NVARCHAR" />
+    <result column="customer_email" property="customerEmail" jdbcType="NVARCHAR" />
+    <result column="department" property="department" jdbcType="NVARCHAR" />
+    <result column="load_id" property="loadId" jdbcType="NVARCHAR" />
+    <result column="load_seq" property="loadSeq" jdbcType="INTEGER" />
+    <result column="bol_number" property="bolNumber" jdbcType="NVARCHAR" />
+    <result column="pro_number" property="proNumber" jdbcType="NVARCHAR" />
+    <result column="master_bol_number" property="masterBolNumber" jdbcType="NVARCHAR" />
+    <result column="carrier" property="carrier" jdbcType="NVARCHAR" />
+    <result column="carrier_scac" property="carrierScac" jdbcType="NVARCHAR" />
+    <result column="freight_terms" property="freightTerms" jdbcType="NVARCHAR" />
+    <result column="rush" property="rush" jdbcType="NVARCHAR" />
+    <result column="priority" property="priority" jdbcType="NVARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="arrive_date" property="arriveDate" jdbcType="TIMESTAMP" />
+    <result column="actual_arrival_date" property="actualArrivalDate" jdbcType="TIMESTAMP" />
+    <result column="date_picked" property="datePicked" jdbcType="TIMESTAMP" />
+    <result column="date_expected" property="dateExpected" jdbcType="TIMESTAMP" />
+    <result column="promised_date" property="promisedDate" jdbcType="TIMESTAMP" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="cubic_volume" property="cubicVolume" jdbcType="DOUBLE" />
+    <result column="containers" property="containers" jdbcType="INTEGER" />
+    <result column="backorder" property="backorder" jdbcType="NVARCHAR" />
+    <result column="pre_paid" property="prePaid" jdbcType="NVARCHAR" />
+    <result column="cod_amount" property="codAmount" jdbcType="DOUBLE" />
+    <result column="insurance_amount" property="insuranceAmount" jdbcType="DOUBLE" />
+    <result column="pip_amount" property="pipAmount" jdbcType="DOUBLE" />
+    <result column="freight_cost" property="freightCost" jdbcType="DOUBLE" />
+    <result column="region" property="region" jdbcType="NVARCHAR" />
+    <result column="bill_to_code" property="billToCode" jdbcType="NVARCHAR" />
+    <result column="bill_to_name" property="billToName" jdbcType="NVARCHAR" />
+    <result column="bill_to_addr1" property="billToAddr1" jdbcType="NVARCHAR" />
+    <result column="bill_to_addr2" property="billToAddr2" jdbcType="NVARCHAR" />
+    <result column="bill_to_addr3" property="billToAddr3" jdbcType="NVARCHAR" />
+    <result column="bill_to_city" property="billToCity" jdbcType="NVARCHAR" />
+    <result column="bill_to_state" property="billToState" jdbcType="NVARCHAR" />
+    <result column="bill_to_zip" property="billToZip" jdbcType="NVARCHAR" />
+    <result column="bill_to_country_code" property="billToCountryCode" jdbcType="NVARCHAR" />
+    <result column="bill_to_country_name" property="billToCountryName" jdbcType="NVARCHAR" />
+    <result column="bill_to_phone" property="billToPhone" jdbcType="NVARCHAR" />
+    <result column="ship_to_code" property="shipToCode" jdbcType="NVARCHAR" />
+    <result column="ship_to_name" property="shipToName" jdbcType="NVARCHAR" />
+    <result column="ship_to_addr1" property="shipToAddr1" jdbcType="NVARCHAR" />
+    <result column="ship_to_addr2" property="shipToAddr2" jdbcType="NVARCHAR" />
+    <result column="ship_to_addr3" property="shipToAddr3" jdbcType="NVARCHAR" />
+    <result column="ship_to_city" property="shipToCity" jdbcType="NVARCHAR" />
+    <result column="ship_to_state" property="shipToState" jdbcType="NVARCHAR" />
+    <result column="ship_to_zip" property="shipToZip" jdbcType="NVARCHAR" />
+    <result column="ship_to_country_code" property="shipToCountryCode" jdbcType="NVARCHAR" />
+    <result column="ship_to_country_name" property="shipToCountryName" jdbcType="NVARCHAR" />
+    <result column="ship_to_phone" property="shipToPhone" jdbcType="NVARCHAR" />
+    <result column="delivery_name" property="deliveryName" jdbcType="NVARCHAR" />
+    <result column="delivery_addr1" property="deliveryAddr1" jdbcType="NVARCHAR" />
+    <result column="delivery_addr2" property="deliveryAddr2" jdbcType="NVARCHAR" />
+    <result column="delivery_addr3" property="deliveryAddr3" jdbcType="NVARCHAR" />
+    <result column="delivery_city" property="deliveryCity" jdbcType="NVARCHAR" />
+    <result column="delivery_state" property="deliveryState" jdbcType="NVARCHAR" />
+    <result column="delivery_zip" property="deliveryZip" jdbcType="NVARCHAR" />
+    <result column="delivery_country_code" property="deliveryCountryCode" jdbcType="NVARCHAR" />
+    <result column="delivery_country_name" property="deliveryCountryName" jdbcType="NVARCHAR" />
+    <result column="delivery_phone" property="deliveryPhone" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_code" property="billFrghtToCode" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_name" property="billFrghtToName" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_addr1" property="billFrghtToAddr1" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_addr2" property="billFrghtToAddr2" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_addr3" property="billFrghtToAddr3" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_city" property="billFrghtToCity" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_state" property="billFrghtToState" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_zip" property="billFrghtToZip" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_country_code" property="billFrghtToCountryCode" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_country_name" property="billFrghtToCountryName" jdbcType="NVARCHAR" />
+    <result column="bill_frght_to_phone" property="billFrghtToPhone" jdbcType="NVARCHAR" />
+    <result column="return_to_code" property="returnToCode" jdbcType="NVARCHAR" />
+    <result column="return_to_name" property="returnToName" jdbcType="NVARCHAR" />
+    <result column="return_to_addr1" property="returnToAddr1" jdbcType="NVARCHAR" />
+    <result column="return_to_addr2" property="returnToAddr2" jdbcType="NVARCHAR" />
+    <result column="return_to_addr3" property="returnToAddr3" jdbcType="NVARCHAR" />
+    <result column="return_to_city" property="returnToCity" jdbcType="NVARCHAR" />
+    <result column="return_to_state" property="returnToState" jdbcType="NVARCHAR" />
+    <result column="return_to_zip" property="returnToZip" jdbcType="NVARCHAR" />
+    <result column="return_to_country_code" property="returnToCountryCode" jdbcType="NVARCHAR" />
+    <result column="return_to_country_name" property="returnToCountryName" jdbcType="NVARCHAR" />
+    <result column="return_to_phone" property="returnToPhone" jdbcType="NVARCHAR" />
+    <result column="rma_number" property="rmaNumber" jdbcType="NVARCHAR" />
+    <result column="rma_expiration_date" property="rmaExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="carton_label" property="cartonLabel" jdbcType="NVARCHAR" />
+    <result column="ver_flag" property="verFlag" jdbcType="NVARCHAR" />
+    <result column="full_pallets" property="fullPallets" jdbcType="INTEGER" />
+    <result column="haz_flag" property="hazFlag" jdbcType="NVARCHAR" />
+    <result column="order_wgt" property="orderWgt" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="zone" property="zone" jdbcType="NVARCHAR" />
+    <result column="drop_ship" property="dropShip" jdbcType="NVARCHAR" />
+    <result column="lock_flag" property="lockFlag" jdbcType="NVARCHAR" />
+    <result column="partial_order_flag" property="partialOrderFlag" jdbcType="NVARCHAR" />
+    <result column="earliest_ship_date" property="earliestShipDate" jdbcType="TIMESTAMP" />
+    <result column="latest_ship_date" property="latestShipDate" jdbcType="TIMESTAMP" />
+    <result column="actual_ship_date" property="actualShipDate" jdbcType="TIMESTAMP" />
+    <result column="earliest_delivery_date" property="earliestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="latest_delivery_date" property="latestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="actual_delivery_date" property="actualDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="route" property="route" jdbcType="NVARCHAR" />
+    <result column="baseline_rate" property="baselineRate" jdbcType="DOUBLE" />
+    <result column="planning_rate" property="planningRate" jdbcType="DOUBLE" />
+    <result column="carrier_id" property="carrierId" jdbcType="INTEGER" />
+    <result column="manifest_carrier_id" property="manifestCarrierId" jdbcType="INTEGER" />
+    <result column="ship_via_id" property="shipViaId" jdbcType="INTEGER" />
+    <result column="display_order_number" property="displayOrderNumber" jdbcType="NVARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="ship_to_residential_flag" property="shipToResidentialFlag" jdbcType="NVARCHAR" />
+    <result column="carrier_mode" property="carrierMode" jdbcType="NVARCHAR" />
+    <result column="service_level" property="serviceLevel" jdbcType="NVARCHAR" />
+    <result column="ship_to_attention" property="shipToAttention" jdbcType="NVARCHAR" />
+    <result column="earliest_appt_time" property="earliestApptTime" jdbcType="TIMESTAMP" />
+    <result column="latest_appt_time" property="latestApptTime" jdbcType="TIMESTAMP" />
+    <result column="payment_terms" property="paymentTerms" jdbcType="NVARCHAR" />
+    <result column="order_serial_number" property="orderSerialNumber" jdbcType="NVARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="carrier_number" property="carrierNumber" jdbcType="NVARCHAR" />
+    <result column="plate_number" property="plateNumber" jdbcType="NVARCHAR" />
+    <result column="interface_id" property="interfaceId" jdbcType="NVARCHAR" />
+    <result column="is_send_back" property="isSendBack" jdbcType="CHAR" />
+  </resultMap>
+  <parameterMap type="java.util.Map" id="cancelOutBoundOrderMap">
+    <parameter property="order_id" mode="IN" jdbcType="INTEGER"/>
+    <parameter property="employee_id" mode="IN" jdbcType="NVARCHAR"/>
+    <parameter property="remag" mode="OUT" jdbcType="NVARCHAR"/>
+  </parameterMap>
+    <update id="updateOutOrderCancel" parameterType="org.shrek.hadata.service.hwms.model.TOrder">
+        update t_order
+        <set>
+            <if test="lockFlag != null">lock_flag=#{lockFlag},</if>
+            <if test="serviceLevel != null">service_level=#{serviceLevel}</if>
+        </set>
+        where order_number=#{orderNumber}
+        and wh_id=#{whId}
+        and client_code=#{clientCode}
+        and type_id=#{typeId}
+    </update>
+  <select id="cancelOutBoundOrder" statementType="CALLABLE" parameterMap="cancelOutBoundOrderMap" >
+    <![CDATA[  {call HT_af_new_cancel_order(?, ?, ?)} ]]>
+
+  </select>
+
+  <select id="selectOrderConfirm" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TOrderConfirm">
+     SELECT ttl.tran_qty
+            ,ttl.lot_number
+            ,convert(varchar(20),ttl.end_tran_date,23) end_tran_date
+            ,'ZP'
+            ,itm.display_item_number
+            ,itm.description
+            ,pd.line_number
+            ,od.po_line_number
+            ,convert(varchar(20),convert(datetime,dbo.usf_HT_get_dynamic_attributes('Production Date', ttl.stored_attribute_id)),23) prod_date,
+            (select max(zl.zone) from t_tran_log ttl2 left join t_zone_loca zl on zl.wh_id = ttl2.wh_id and zl.location_id = ttl2.location_id where ttl2.control_number=ttl.control_number and ttl2.item_number=ttl.item_number and ttl2.lot_number=ttl.lot_number and ttl2.tran_qty=ttl.tran_qty and ttl2.tran_type='301') zone
+        FROM t_tran_log ttl
+            INNER JOIN t_item_master itm
+                ON ttl.item_number = itm.item_number
+                AND ttl.wh_id = itm.wh_id
+            INNER JOIN t_pick_detail pd
+                ON ttl.control_number_2 = pd.pick_id
+            INNER JOIN t_order_detail od
+                ON pd.wh_id = od.wh_id
+                AND pd.order_number = od.order_number
+                AND pd.line_number = od.line_number
+        WHERE ttl.control_number=#{order_number}
+            AND ttl.wh_id=#{whse}
+            AND ttl.tran_type='340'
+  </select>
+  <select id="selectOrderPackage" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TOrderPackage">
+ SELECT s.ship_label_barcode
+		,(case when isnull(c.carrier_code,o.carrier_scac)='YD' THEN 'YUNDA' ELSE isnull(c.carrier_code,o.carrier_scac) end) carrier_code
+		,c.carrier_name
+		,(SELECT SUM(sdi.qty*isnull(itmi.unit_weight,0)) FROM tbl_shipping_label_detail sdi LEFT JOIN tbl_shipping_label si on si.carton_number=sdi.carton_number LEFT JOIN t_item_master itmi on sdi.item_number=itmi.item_number and sdi.wh_id=itmi.wh_id WHERE si.order_number=#{order_number} and si.wh_id=#{whse}) as weight
+		,s.carton_number
+	FROM tbl_shipping_label s
+		LEFT JOIN t_order o
+		ON s.wh_id=o.wh_id
+		AND s.order_number=o.order_number
+		LEFT JOIN t_carrier c
+		ON o.carrier_id=c.carrier_id
+	WHERE s.order_number=#{order_number}
+		AND s.wh_id=#{whse}
+  </select>
+  <select id="selectOrderPackageItem" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TOrderPackageItem">
+  SELECT itm.display_item_number
+          ,itm.description
+          ,sd.qty
+      FROM tbl_shipping_label_detail sd
+          LEFT JOIN t_item_master itm
+          ON itm.wh_id=sd.wh_id
+          AND itm.item_number=sd.item_number
+      WHERE sd.carton_number=#{carton_number}
+          AND sd.wh_id=#{whse}
+  </select>
+  <select id="selectTopOrderByStatus" parameterType="java.util.HashMap" resultType="java.lang.String">
+            select
+				top 30 o.order_number
+			from
+				t_order o
+				left join t_client c on o.client_code = c.client_code
+			where
+			c.ext_code=#{ext_code}
+			AND c.long_client_code=#{long_client_code}
+			AND o.status = 'S'
+			and o.is_send_back = 0
+			and o.interface_id is not null
+  </select>
+</mapper>

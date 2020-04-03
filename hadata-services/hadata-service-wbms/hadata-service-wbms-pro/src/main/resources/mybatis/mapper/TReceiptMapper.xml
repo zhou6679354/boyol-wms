@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TReceiptMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TReceipt" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="receipt_identity" property="receiptIdentity" jdbcType="INTEGER" />
+    <result column="receipt_id" property="receiptId" jdbcType="NVARCHAR" />
+    <result column="vendor_code" property="vendorCode" jdbcType="NVARCHAR" />
+    <result column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <result column="receipt_date" property="receiptDate" jdbcType="TIMESTAMP" />
+    <result column="scac_code" property="scacCode" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="NCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <result column="schedule_number" property="scheduleNumber" jdbcType="INTEGER" />
+    <result column="qty_received" property="qtyReceived" jdbcType="DOUBLE" />
+    <result column="qty_damaged" property="qtyDamaged" jdbcType="DOUBLE" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="pack_slip" property="packSlip" jdbcType="NVARCHAR" />
+    <result column="fork_id" property="forkId" jdbcType="NVARCHAR" />
+    <result column="tran_status" property="tranStatus" jdbcType="NCHAR" />
+    <result column="receipt_uom" property="receiptUom" jdbcType="NVARCHAR" />
+    <result column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="hold_reason_id" property="holdReasonId" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="cabinet_number" property="cabinetNumber" jdbcType="NVARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="VARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="confirm_date" property="confirmDate" jdbcType="TIMESTAMP" />
+    <result column="confirm_user" property="confirmUser" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="selectTReceiptInfo"  resultType="org.shrek.hadata.service.iwms.model.TReceiptCount" parameterType="org.shrek.hadata.service.iwms.model.TReceipt">
+    select po_number as poNumber,
+line_number as lineNumber,
+item_number as itemNumber,
+expiration_date as expirationDate,
+lot_number as lotNumber,
+receipt_uom as receiptUom,
+isnull(storage_type,0) as storageType,
+wh_id as whId,
+stored_attribute_id as storedAttributeId,
+sum(qty_received) as qtyReceived
+from t_receipt
+where po_number=#{poNumber}
+and wh_id=#{whId}
+group by po_number,line_number,item_number,expiration_date,lot_number,receipt_uom,isnull(storage_type,0),wh_id,stored_attribute_id
+  </select>
+  <select id="selectTReceipt"  resultType="org.shrek.hadata.service.iwms.model.TReceipt" parameterType="org.shrek.hadata.service.iwms.model.TReceipt">
+  select
+max(receipt_identity) as receiptIdentity,
+max(receipt_id) as receiptId,
+max(vendor_code) as vendorCode,
+po_number as poNumber,
+max(receipt_date) as receiptDate,
+max(scac_code) as scacCode,
+max(status) as status,
+item_number as itemNumber,
+lot_number as lotNumber,
+line_number as lineNumber,
+max(schedule_number) as scheduleNumber,
+sum(qty_received) as qtyReceived,
+sum(qty_damaged) as qtyDamaged,
+max(hu_id) as huId,
+max(pack_slip) as packSlip,
+max(fork_id) as forkId,
+max(tran_status) as tranStatus,
+max(receipt_uom) as receiptUom,
+max(shipment_number) as shipmentNumber,
+max(wh_id) as whId,
+max(stored_attribute_id) as storedAttributeId,
+max(hold_reason_id) as holdReasonId,
+max(expiration_date) as expirationDate,
+max(cabinet_number) as cabinetNumber,
+max(storage_type) as storageType,
+max(location_id) as locationId,
+max(confirm_date) as confirmDate,
+max(confirm_user) as confirmUser
+from t_receipt
+where po_number=#{poNumber}
+and wh_id=#{whId}
+group by po_number,line_number,item_number,lot_number
+  </select>
+</mapper>

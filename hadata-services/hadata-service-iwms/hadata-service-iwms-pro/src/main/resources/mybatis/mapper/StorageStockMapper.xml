@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.StorageStockMapper">
+
+    <select id="queryStorageStockByWhId" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.iwms.model.StorageStock">
+         select d.order_number as orderNumber,
+                d.item_number as itemNumber,
+                s.location_id as locationId,
+                o.client_code as clientCode,
+                o.ship_to_city as shipToCity,
+			    d.wave_id as waveId,
+                sum(d.planned_quantity) as plannedQuantity
+                from t_pick_detail d
+                left join t_stored_item s
+                on s.type=d.pick_id
+                and s.wh_id=d.wh_id
+				left join t_order o
+			    on d.order_number = o.order_number
+				and o.wh_id = d.wh_id
+                where d.wh_id=#{whId}
+                and d.load_id is null
+                and s.sto_id is not null
+                group by d.order_number,d.item_number,s.location_id,d.wave_id,o.client_code,o.ship_to_city
+                order by d.wave_id,d.order_number,d.item_number
+    </select>
+
+    <select id="getTblItemSynWisdom" parameterType="org.shrek.hadata.service.iwms.model.TblItemSynWisdom" resultType="org.shrek.hadata.service.iwms.model.TblItemSynWisdom">
+       select isw.item_number as itemNumber,
+                isw.length as leng,
+                isw.height as height,
+                isw.width as width,
+                isw.unit_weight as unitWeight,
+                isw.proc_type as procType
+                from tbl_item_syn_wisdom isw
+                where isw.wh_id=#{whId}
+                and isw.syn_flag =#{synFlag}
+    </select>
+    <select id="queryTStoredItemByWhId" parameterType="org.shrek.hadata.service.iwms.model.TStoredItem" resultType="org.shrek.hadata.service.iwms.model.TStoredItem">
+       select max(s.location_id) as locationId,
+            sum(s.actual_qty) as actualQty,
+            sum(s.unavailable_qty) as unavailableQty,
+            max(s.item_number) as itemNumber
+            from t_stored_item s
+            where  0>=s.type
+            and s.wh_id=#{whId}
+            group by s.wh_id,s.item_number,s.location_id
+    </select>
+
+</mapper>

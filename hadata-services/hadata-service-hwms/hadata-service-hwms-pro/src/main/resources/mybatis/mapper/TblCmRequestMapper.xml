@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TblCmRequestMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TblCmRequest" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="req_qty" property="reqQty" jdbcType="DOUBLE" />
+    <result column="req_user" property="reqUser" jdbcType="NVARCHAR" />
+    <result column="req_datetime" property="reqDatetime" jdbcType="TIMESTAMP" />
+    <result column="send_flag" property="sendFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectTblCmOrder"  resultType="org.shrek.hadata.service.hwms.model.TblCmRequest">
+    SELECT
+    wh_id,
+    client_code,
+    item_number,
+    sum(req_qty) req_qty,
+    min(req_datetime) req_datetime,
+    min(send_flag) send_flag
+    FROM tbl_cm_request
+    WHERE send_flag='0'
+    AND datediff(day,getdate(),req_datetime)=-1
+    group by wh_id,client_code,item_number
+  </select>
+</mapper>

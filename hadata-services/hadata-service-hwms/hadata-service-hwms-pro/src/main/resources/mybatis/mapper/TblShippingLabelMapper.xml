@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TblShippingLabelMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TblShippingLabel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="carton_number" property="cartonNumber" jdbcType="NVARCHAR" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="ship_label_barcode" property="shipLabelBarcode" jdbcType="NVARCHAR" />
+    <result column="route" property="route" jdbcType="NVARCHAR" />
+    <result column="carton_type" property="cartonType" jdbcType="NVARCHAR" />
+    <result column="origal_carton_type" property="origalCartonType" jdbcType="NVARCHAR" />
+    <result column="carrier" property="carrier" jdbcType="NVARCHAR" />
+    <result column="logical_weight" property="logicalWeight" jdbcType="DOUBLE" />
+    <result column="actual_weight" property="actualWeight" jdbcType="DOUBLE" />
+    <result column="origal_actual_weight" property="origalActualWeight" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="NVARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="weight_time" property="weightTime" jdbcType="TIMESTAMP" />
+    <result column="weight_status" property="weightStatus" jdbcType="VARCHAR" />
+    <result column="is_nts_carton" property="isNtsCarton" jdbcType="VARCHAR" />
+    <result column="delivery_number" property="deliveryNumber" jdbcType="NVARCHAR" />
+    <result column="delivery_date" property="deliveryDate" jdbcType="TIMESTAMP" />
+    <result column="loaded_date" property="loadedDate" jdbcType="TIMESTAMP" />
+    <result column="confirm_date" property="confirmDate" jdbcType="TIMESTAMP" />
+    <result column="is_pe_carton" property="isPeCarton" jdbcType="VARCHAR" />
+    <result column="relate_carton_number" property="relateCartonNumber" jdbcType="NVARCHAR" />
+    <result column="user_assigned" property="userAssigned" jdbcType="NVARCHAR" />
+    <result column="is_shutoff" property="isShutoff" jdbcType="VARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

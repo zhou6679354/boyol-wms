@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TRcptShipPoMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TRcptShipPo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <id column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <id column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <result column="cases_expected" property="casesExpected" jdbcType="DOUBLE" />
+    <result column="cases_received" property="casesReceived" jdbcType="DOUBLE" />
+    <result column="open_to_buy_date" property="openToBuyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

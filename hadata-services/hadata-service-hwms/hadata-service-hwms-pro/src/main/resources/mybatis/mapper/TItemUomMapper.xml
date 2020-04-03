@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TItemUomMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TItemUom" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="item_uom_id" property="itemUomId" jdbcType="INTEGER" />
+    <id column="uom" property="uom" jdbcType="NVARCHAR" />
+    <result column="item_master_id" property="itemMasterId" jdbcType="INTEGER" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="conversion_factor" property="conversionFactor" jdbcType="DOUBLE" />
+    <result column="package_weight" property="packageWeight" jdbcType="DOUBLE" />
+    <result column="units_per_layer" property="unitsPerLayer" jdbcType="DOUBLE" />
+    <result column="layers_per_uom" property="layersPerUom" jdbcType="DOUBLE" />
+    <result column="uom_weight" property="uomWeight" jdbcType="DOUBLE" />
+    <result column="pickable" property="pickable" jdbcType="NVARCHAR" />
+    <result column="box_type" property="boxType" jdbcType="INTEGER" />
+    <result column="length" property="length" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="no_overhang_on_top" property="noOverhangOnTop" jdbcType="INTEGER" />
+    <result column="stack_code" property="stackCode" jdbcType="INTEGER" />
+    <result column="batch" property="batch" jdbcType="INTEGER" />
+    <result column="use_orientation_data" property="useOrientationData" jdbcType="INTEGER" />
+    <result column="turnable" property="turnable" jdbcType="INTEGER" />
+    <result column="on_bottom_ok" property="onBottomOk" jdbcType="INTEGER" />
+    <result column="on_side_ok" property="onSideOk" jdbcType="INTEGER" />
+    <result column="on_end_ok" property="onEndOk" jdbcType="INTEGER" />
+    <result column="bottom_only" property="bottomOnly" jdbcType="INTEGER" />
+    <result column="top_only" property="topOnly" jdbcType="INTEGER" />
+    <result column="max_in_layer" property="maxInLayer" jdbcType="INTEGER" />
+    <result column="max_support_weight" property="maxSupportWeight" jdbcType="DOUBLE" />
+    <result column="stack_index" property="stackIndex" jdbcType="INTEGER" />
+    <result column="container_value" property="containerValue" jdbcType="DOUBLE" />
+    <result column="load_separately" property="loadSeparately" jdbcType="INTEGER" />
+    <result column="nesting_height_increase" property="nestingHeightIncrease" jdbcType="DOUBLE" />
+    <result column="nested_volume" property="nestedVolume" jdbcType="DOUBLE" />
+    <result column="unit_volume" property="unitVolume" jdbcType="DOUBLE" />
+    <result column="pattern" property="pattern" jdbcType="NVARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="uom_prompt" property="uomPrompt" jdbcType="NVARCHAR" />
+    <result column="default_receipt_uom" property="defaultReceiptUom" jdbcType="NVARCHAR" />
+    <result column="default_pick_uom" property="defaultPickUom" jdbcType="NVARCHAR" />
+    <result column="class_id" property="classId" jdbcType="NVARCHAR" />
+    <result column="pick_put_id" property="pickPutId" jdbcType="NVARCHAR" />
+    <result column="conveyable" property="conveyable" jdbcType="NVARCHAR" />
+    <result column="std_hand_qty" property="stdHandQty" jdbcType="DOUBLE" />
+    <result column="min_hand_qty" property="minHandQty" jdbcType="DOUBLE" />
+    <result column="max_hand_qty" property="maxHandQty" jdbcType="DOUBLE" />
+    <result column="default_pick_area" property="defaultPickArea" jdbcType="NVARCHAR" />
+    <result column="pick_location" property="pickLocation" jdbcType="NVARCHAR" />
+    <result column="display_config" property="displayConfig" jdbcType="NVARCHAR" />
+    <result column="vas_profile" property="vasProfile" jdbcType="NVARCHAR" />
+    <result column="cartonization_flag" property="cartonizationFlag" jdbcType="NVARCHAR" />
+    <result column="gtin" property="gtin" jdbcType="NVARCHAR" />
+    <result column="shippable_uom" property="shippableUom" jdbcType="NVARCHAR" />
+    <result column="units_per_grab" property="unitsPerGrab" jdbcType="NUMERIC" />
+    <result column="upright_only" property="uprightOnly" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

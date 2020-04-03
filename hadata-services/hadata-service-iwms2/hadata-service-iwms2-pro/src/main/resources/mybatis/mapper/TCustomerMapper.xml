@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TCustomerMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TCustomer" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="customer_code" property="customerCode" jdbcType="NVARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="NVARCHAR" />
+    <result column="customer_addr1" property="customerAddr1" jdbcType="NVARCHAR" />
+    <result column="customer_addr2" property="customerAddr2" jdbcType="NVARCHAR" />
+    <result column="customer_addr3" property="customerAddr3" jdbcType="NVARCHAR" />
+    <result column="customer_city" property="customerCity" jdbcType="NVARCHAR" />
+    <result column="customer_state" property="customerState" jdbcType="NVARCHAR" />
+    <result column="customer_zip" property="customerZip" jdbcType="NVARCHAR" />
+    <result column="customer_country_code" property="customerCountryCode" jdbcType="NVARCHAR" />
+    <result column="customer_country_name" property="customerCountryName" jdbcType="NVARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="NVARCHAR" />
+    <result column="customer_email" property="customerEmail" jdbcType="NVARCHAR" />
+    <result column="customer_category" property="customerCategory" jdbcType="NVARCHAR" />
+    <result column="customer_priority" property="customerPriority" jdbcType="NVARCHAR" />
+    <result column="customer_ship_method" property="customerShipMethod" jdbcType="NVARCHAR" />
+    <result column="customer_route" property="customerRoute" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="pick_put_id" property="pickPutId" jdbcType="NVARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="NVARCHAR" />
+    <result column="lot_qty_limit" property="lotQtyLimit" jdbcType="BIGINT" />
+  </resultMap>
+  <select id="getCustomerCodeByWhse" parameterType="org.shrek.hadata.service.iwms.model.TCustomer" resultType="java.lang.String">
+        SELECT c.customer_code
+        FROM t_customer c
+        WHERE c.wh_id=#{whId}
+        and c.customer_country_code=#{customerCountryCode}
+    </select>
+</mapper>

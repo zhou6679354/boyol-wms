@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TCarrierMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TCarrier" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="carrier_id" property="carrierId" jdbcType="INTEGER" />
+    <result column="carrier_code" property="carrierCode" jdbcType="NVARCHAR" />
+    <result column="carrier_name" property="carrierName" jdbcType="NVARCHAR" />
+    <result column="scac_code" property="scacCode" jdbcType="NVARCHAR" />
+    <result column="transport_mode" property="transportMode" jdbcType="NVARCHAR" />
+    <result column="carrier_group_id" property="carrierGroupId" jdbcType="INTEGER" />
+    <result column="contact_name" property="contactName" jdbcType="NVARCHAR" />
+    <result column="cdl_verify" property="cdlVerify" jdbcType="NVARCHAR" />
+    <result column="time_allowed_early" property="timeAllowedEarly" jdbcType="INTEGER" />
+    <result column="time_allowed_late" property="timeAllowedLate" jdbcType="INTEGER" />
+    <result column="disposition" property="disposition" jdbcType="NVARCHAR" />
+    <result column="default_trailer_type_id" property="defaultTrailerTypeId" jdbcType="INTEGER" />
+    <result column="default_priority" property="defaultPriority" jdbcType="NVARCHAR" />
+    <result column="dock_schedule_method" property="dockScheduleMethod" jdbcType="NVARCHAR" />
+    <result column="notes" property="notes" jdbcType="NVARCHAR" />
+    <result column="effective" property="effective" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="freight_fwd_flag" property="freightFwdFlag" jdbcType="NCHAR" />
+    <result column="address1" property="address1" jdbcType="NVARCHAR" />
+    <result column="address2" property="address2" jdbcType="NVARCHAR" />
+    <result column="address3" property="address3" jdbcType="NVARCHAR" />
+    <result column="address4" property="address4" jdbcType="NVARCHAR" />
+    <result column="city" property="city" jdbcType="NVARCHAR" />
+    <result column="county" property="county" jdbcType="NVARCHAR" />
+    <result column="state" property="state" jdbcType="NVARCHAR" />
+    <result column="zip" property="zip" jdbcType="NVARCHAR" />
+    <result column="country" property="country" jdbcType="NVARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="NVARCHAR" />
+    <result column="phone" property="phone" jdbcType="NVARCHAR" />
+    <result column="extension" property="extension" jdbcType="NVARCHAR" />
+    <result column="fax" property="fax" jdbcType="NVARCHAR" />
+    <result column="email" property="email" jdbcType="NVARCHAR" />
+    <result column="website" property="website" jdbcType="NVARCHAR" />
+    <result column="manifest_carrier_flag" property="manifestCarrierFlag" jdbcType="NCHAR" />
+    <result column="flagship_carrier_code" property="flagshipCarrierCode" jdbcType="NVARCHAR" />
+  </resultMap>
+</mapper>

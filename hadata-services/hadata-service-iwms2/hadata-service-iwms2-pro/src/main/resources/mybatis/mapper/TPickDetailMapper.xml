@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TPickDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TPickDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="pick_id" property="pickId" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <result column="type" property="type" jdbcType="NVARCHAR" />
+    <result column="uom" property="uom" jdbcType="NVARCHAR" />
+    <result column="work_q_id" property="workQid" jdbcType="NVARCHAR" />
+    <result column="work_type" property="workType" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="unplanned_quantity" property="unplannedQuantity" jdbcType="DOUBLE" />
+    <result column="planned_quantity" property="plannedQuantity" jdbcType="DOUBLE" />
+    <result column="picked_quantity" property="pickedQuantity" jdbcType="DOUBLE" />
+    <result column="staged_quantity" property="stagedQuantity" jdbcType="DOUBLE" />
+    <result column="loaded_quantity" property="loadedQuantity" jdbcType="DOUBLE" />
+    <result column="packed_quantity" property="packedQuantity" jdbcType="DOUBLE" />
+    <result column="shipped_quantity" property="shippedQuantity" jdbcType="DOUBLE" />
+    <result column="pick_location" property="pickLocation" jdbcType="NVARCHAR" />
+    <result column="picking_flow" property="pickingFlow" jdbcType="NVARCHAR" />
+    <result column="staging_location" property="stagingLocation" jdbcType="NVARCHAR" />
+    <result column="zone" property="zone" jdbcType="NVARCHAR" />
+    <result column="wave_id" property="waveId" jdbcType="NVARCHAR" />
+    <result column="load_id" property="loadId" jdbcType="NVARCHAR" />
+    <result column="load_sequence" property="loadSequence" jdbcType="INTEGER" />
+    <result column="stop_id" property="stopId" jdbcType="NVARCHAR" />
+    <result column="container_id" property="containerId" jdbcType="NVARCHAR" />
+    <result column="pick_category" property="pickCategory" jdbcType="NVARCHAR" />
+    <result column="user_assigned" property="userAssigned" jdbcType="NVARCHAR" />
+    <result column="bulk_pick_flag" property="bulkPickFlag" jdbcType="NVARCHAR" />
+    <result column="stacking_sequence" property="stackingSequence" jdbcType="INTEGER" />
+    <result column="pick_area" property="pickArea" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="cartonization_batch_id" property="cartonizationBatchId" jdbcType="NVARCHAR" />
+    <result column="manifest_batch_id" property="manifestBatchId" jdbcType="NVARCHAR" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="before_pick_rule" property="beforePickRule" jdbcType="NVARCHAR" />
+    <result column="during_pick_rule" property="duringPickRule" jdbcType="NVARCHAR" />
+    <result column="pick_location_change_date" property="pickLocationChangeDate" jdbcType="NVARCHAR" />
+    <result column="hold_reason_id" property="holdReasonId" jdbcType="NVARCHAR" />
+    <result column="allocated_qty" property="allocatedQty" jdbcType="DOUBLE" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="BIGINT" />
+  </resultMap>
+  <update id="updateTPickDetailByOrderNumberAndWhId" parameterType="org.shrek.hadata.service.iwms.model.TPickDetail">
+    update t_pick_detail
+    <set>
+      <if test="loadId != null">load_id=#{loadId}</if>
+    </set>
+    where order_number=#{orderNumber}
+    and wh_id=#{whId}
+  </update>
+
+</mapper>

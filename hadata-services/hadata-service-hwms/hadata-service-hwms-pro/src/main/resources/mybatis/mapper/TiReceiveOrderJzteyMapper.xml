@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TiReceiveOrderJzteyMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TiReceiveOrderJztey" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="master_id" property="masterId" jdbcType="VARCHAR" />
+    <result column="org_code" property="orgCode" jdbcType="NVARCHAR" />
+    <result column="contact" property="contact" jdbcType="NVARCHAR" />
+    <result column="clerk" property="clerk" jdbcType="NVARCHAR" />
+    <result column="operator" property="operator" jdbcType="NVARCHAR" />
+    <result column="dept_code" property="deptCode" jdbcType="NVARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="NVARCHAR" />
+    <result column="is_cn_medicine" property="isCnMedicine" jdbcType="CHAR" />
+    <result column="inbound_type" property="inboundType" jdbcType="NVARCHAR" />
+    <result column="uploader" property="uploader" jdbcType="NVARCHAR" />
+    <result column="reject_type" property="rejectType" jdbcType="NVARCHAR" />
+    <result column="LMIS_invoking_status" property="lmisInvokingStatus" jdbcType="NVARCHAR" />
+    <result column="branch" property="branch" jdbcType="NVARCHAR" />
+    <result column="is_stress_check" property="isStressCheck" jdbcType="CHAR" />
+    <result column="checker" property="checker" jdbcType="NVARCHAR" />
+  </resultMap>
+	<select id="selectInBoundsToJztey" resultType="HashMap" parameterType="HashMap">
+	SELECT tpd.po_number ,
+		   troj.org_code ,
+		   trom.order_date ,
+		   troj.clerk ,
+		   troj.operator ,
+		   troj.checker ,
+		   troj.dept_code ,
+		   '1' uploader ,
+			   tim.alt_item_number display_item_number ,
+			   sum(tr.box_num) box_num_received ,
+			   sum(tr.bulk_num) bulk_num_received ,
+			   sum(tr.qty_received) qty_received ,
+			   tpd.unit_price ,
+			   isnull(tpd.unit_price,0) * sum(tr.qty_received) total_price ,
+			   tr.lot_number ,
+			   CONVERT(varchar(100), dbo.usf_HT_get_dynamic_attributes('Production Date', min(tr.stored_attribute_id)), 23) prod_date ,
+			   CONVERT(varchar(100), min(tr.expiration_date), 23) expira_date ,
+			   troj.inbound_type ,
+			   trom.order_type ,
+			   '合格' AS lot_status ,
+			   'N' AS status ,
+			   tc.ext_code branch ,
+			   tc.long_client_code store_code ,
+			   min(tr.line_number) line_number,
+			   min(tr.receipt_identity) receipt_identity,
+		       tr.wh_id
+	FROM t_receipt tr
+	LEFT JOIN t_po_detail tpd ON tr.wh_id=tpd.wh_id
+	AND tr.po_number=tpd.po_number
+	AND tr.line_number=tpd.line_number
+	LEFT JOIN t_po_master tpm ON tpd.wh_id=tpm.wh_id
+	AND tpd.po_number=tpm.po_number
+	LEFT JOIN ti_receive_order_jztey troj ON tpm.interface_id=troj.master_id
+	LEFT JOIN ti_receive_order_master trom ON tpm.interface_id=trom.id
+	LEFT JOIN t_item_master tim ON tpd.wh_id=tim.wh_id
+	AND tpd.item_number=tim.item_number
+	LEFT JOIN t_client tc ON tr.wh_id=tc.wh_id
+	AND tpm.client_code=tc.client_code
+	WHERE tpm.is_send_back = '0'
+	  AND tpm.status = 'C'
+	  AND tc.ext_code=#{branch}
+	  AND tc.long_client_code=#{store}
+	  AND troj.is_consign=#{type}
+	GROUP BY tpd.po_number ,
+		   troj.org_code ,
+		   trom.order_date ,
+		   troj.clerk ,
+		   troj.operator ,
+		   troj.checker ,
+		   troj.dept_code ,
+		   tim.alt_item_number ,
+		   tpd.unit_price ,
+		   tr.lot_number ,
+		   troj.inbound_type ,
+		   trom.order_type ,
+		   tc.ext_code ,
+		   tc.long_client_code ,
+		   tr.wh_id
+  </select>
+</mapper>

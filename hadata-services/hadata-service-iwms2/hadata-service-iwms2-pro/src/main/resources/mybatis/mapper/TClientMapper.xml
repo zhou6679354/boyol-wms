@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TClientMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TClient" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <id column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="name" property="name" jdbcType="NVARCHAR" />
+    <result column="addr1" property="addr1" jdbcType="NVARCHAR" />
+    <result column="addr2" property="addr2" jdbcType="NVARCHAR" />
+    <result column="addr3" property="addr3" jdbcType="NVARCHAR" />
+    <result column="city" property="city" jdbcType="NVARCHAR" />
+    <result column="state" property="state" jdbcType="NVARCHAR" />
+    <result column="zip" property="zip" jdbcType="NVARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="NCHAR" />
+    <result column="country_name" property="countryName" jdbcType="NVARCHAR" />
+    <result column="phone" property="phone" jdbcType="NVARCHAR" />
+    <result column="email" property="email" jdbcType="NVARCHAR" />
+    <result column="contact" property="contact" jdbcType="NVARCHAR" />
+    <result column="fax" property="fax" jdbcType="NVARCHAR" />
+    <result column="long_client_code" property="longClientCode" jdbcType="NVARCHAR" />
+  </resultMap>
+</mapper>

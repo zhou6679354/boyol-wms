@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TStoredItemMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TStoredItem" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="sto_id" property="stoId" jdbcType="BIGINT" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="actual_qty" property="actualQty" jdbcType="DOUBLE" />
+    <result column="unavailable_qty" property="unavailableQty" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="NCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="fifo_date" property="fifoDate" jdbcType="TIMESTAMP" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="reserved_for" property="reservedFor" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="inspection_code" property="inspectionCode" jdbcType="NCHAR" />
+    <result column="type" property="type" jdbcType="BIGINT" />
+    <result column="put_away_location" property="putAwayLocation" jdbcType="NVARCHAR" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+  </resultMap>
+    <select id="selectStoreInfo"  parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.iwms.model.QimenStoredInfo">
+      SELECT sto.wh_id warehouse_code
+            ,itm.display_item_number item_code
+            ,(CASE WHEN sto.type >= 0 THEN 'ZP' ELSE 'CC' END) store_type
+            ,sto.type inventory_type
+            ,sum(sto.actual_qty) quantity
+            ,sto.lot_number batch_code
+            ,convert(varchar(10),convert(datetime,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id)),23) product_date
+            ,convert(varchar(10),sto.expiration_date,23) expire_date
+            ,sto.lot_number produce_code
+            ,itm.item_master_id item_id
+        FROM t_stored_item sto
+            INNER JOIN t_item_master itm
+            ON sto.item_number = itm.item_number
+            AND sto.wh_id = itm.wh_id
+        WHERE sto.item_number = #{item_number}
+            AND sto.wh_id = #{wh_id}
+            AND itm.client_code = #{client_code}
+        group by sto.lot_number
+                ,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id)
+                ,sto.expiration_date
+                ,sto.lot_number
+                ,sto.wh_id
+                ,sto.item_number
+                ,itm.display_item_number
+                ,sto.type
+                ,itm.item_master_id
+    </select>
+    <select id="selectInventoryList" resultType="org.shrek.hadata.service.iwms.model.StoreItem"
+            parameterType="java.util.HashMap">
+        SELECT sto.wh_id as store
+        ,itm.client_code as client
+        ,tzl.zone
+        ,uom.class_id as type
+        ,itm.display_item_number as itemCode
+        ,sto.lot_number as batchCode
+        ,sum(sto.actual_qty) as qty
+        ,floor(sum(sto.actual_qty)/uom.conversion_factor) as boxQty
+        ,(CASE WHEN sto.type=9 THEN 'Y' ELSE 'N' END) as preScanned
+        ,ISNULL(sto.reserved_for,'') as preScanCust
+        ,convert(varchar(20),convert(datetime,acd.attribute_value),23) prodDate
+		,convert(varchar(20),sto.expiration_date,23) expDate
+        FROM t_stored_item sto
+        INNER JOIN t_item_master itm
+        ON sto.wh_id = itm.wh_id
+        AND sto.item_number = itm.item_number
+        INNER JOIN t_item_uom uom
+        ON uom.wh_id = sto.wh_id
+        AND uom.item_number = sto.item_number
+        AND uom.uom = 'CS'
+        INNER JOIN t_sto_attrib_collection_detail acd
+		ON sto.stored_attribute_id = acd.stored_attribute_id
+		AND acd.attribute_id = '6'
+        LEFT JOIN t_zone_loca tzl
+        ON tzl.wh_id = sto.wh_id
+        AND tzl.location_id = sto.location_id
+        WHERE itm.client_code = #{client_code}
+        and itm.wh_id = #{wh_id}
+        and sto.location_id!='OD01'
+        and sto.actual_qty > 0
+        GROUP BY sto.wh_id
+        ,itm.client_code
+        ,tzl.zone
+        ,uom.class_id
+        ,itm.display_item_number
+        ,sto.lot_number
+        ,uom.conversion_factor
+        ,sto.type
+        ,sto.reserved_for
+        ,sto.expiration_date
+		,convert(varchar(20),convert(datetime,acd.attribute_value),23)
+    </select>
+    <select id="queryTStoredItemList" resultType="org.shrek.hadata.service.iwms.model.TStoredCount"
+            parameterType="java.lang.String">
+select item_number as itemNumber,
+sum(actual_qty) as actualQty,
+wh_id as whId,
+isnull(type,0) as type
+from t_stored_item
+where wh_id=#{whId}
+and 0>=type
+group by item_number,wh_id,isnull(type,0)
+    </select>
+    <select id="selectStoreBatchInfo"  parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.iwms.model.ScfStoredBatchInfo">
+     select itm.display_item_number itemCode
+	,sto.lot_number batchCode
+	,sum(case when type in (0,9) then sto.actual_qty when type > 10 then sto.actual_qty when type =-2 and sto.reserved_for is not null then sto.actual_qty else 0 end) quantity
+	,sum(case when type not in (0,9) and  sto.reserved_for is null then sto.actual_qty else 0 end) lockQuantity
+	,1 as inventoryType
+	,convert(varchar(20),convert(datetime,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id)),20) produceDate
+	,convert(varchar(20),sto.expiration_date,20) overdueDate
+	,itm.shelf_life guaranteePeriod
+    from t_stored_item sto
+	inner join  t_item_master itm
+	on sto.wh_id=itm.wh_id
+	and sto.item_number=itm.item_number
+        WHERE sto.item_number = #{item_number}
+            AND sto.wh_id = #{wh_id}
+            AND itm.client_code = #{client_code}
+            AND (sto.type >= 0 or sto.type=-2)
+        group by itm.display_item_number,sto.lot_number,sto.expiration_date,convert(varchar(20),convert(datetime,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id)),20),itm.shelf_life
+    </select>
+    <select id="queryTStoredItemByItemNumber" resultType="org.shrek.hadata.service.iwms.model.StoreItem"
+            parameterType="org.shrek.hadata.service.iwms.model.StoreItem">
+select
+max(s.sto_id) as stoId,
+max(s.sequence) as sequence,
+item_number as itemNumber,
+sum(actual_qty) as actualQty,
+max(s.status) as status,
+wh_id as whId,
+max(s.location_id) as locationId,
+max(s.fifo_date) as fifoDate,
+max(s.expiration_date) as expirationDate,
+max(s.reserved_for) as reservedFor,
+max(s.lot_number) as lotNumber,
+max(s.inspection_code) as inspectionCode,
+max(s.type) as type,
+max(s.put_away_location) as putAwayLocation,
+max(s.stored_attribute_id) as storedAttributeId,
+max(s.hu_id) as huId,
+max(s.shipment_number) as shipmentNumber
+from t_stored_item s
+where wh_id in ('218','219')
+        <if test="itemNumber != null and itemNumber != ''">
+and item_number=#{itemNumber}
+        </if>
+group by item_number,wh_id
+    </select>
+    <select id="queryStoredItemByWhId"  parameterType="java.util.List" resultType="org.shrek.hadata.service.iwms.model.TStoredItem">
+      select lot_number as lotNumber,
+      item_number as itemNumber,
+      sum(actual_qty) as  actualQty,
+      wh_id as whId,
+      type,
+      expiration_date as expirationDate,
+      reserved_for as reservedFor
+from t_stored_item
+where wh_id in
+  <foreach collection="list" index="index" item="whId" open="(" close=")" separator=",">
+        #{whId,jdbcType=VARCHAR}
+    </foreach>
+group by lot_number,item_number,wh_id,type,expiration_date,reserved_for
+    </select>
+</mapper>

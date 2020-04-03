@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TStoredItemMapper">
+    <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TStoredItem">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="sto_id" property="stoId" jdbcType="BIGINT"/>
+        <result column="sequence" property="sequence" jdbcType="INTEGER"/>
+        <result column="item_number" property="itemNumber" jdbcType="NVARCHAR"/>
+        <result column="actual_qty" property="actualQty" jdbcType="DOUBLE"/>
+        <result column="unavailable_qty" property="unavailableQty" jdbcType="DOUBLE"/>
+        <result column="status" property="status" jdbcType="NCHAR"/>
+        <result column="wh_id" property="whId" jdbcType="NVARCHAR"/>
+        <result column="location_id" property="locationId" jdbcType="NVARCHAR"/>
+        <result column="fifo_date" property="fifoDate" jdbcType="TIMESTAMP"/>
+        <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP"/>
+        <result column="reserved_for" property="reservedFor" jdbcType="NVARCHAR"/>
+        <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR"/>
+        <result column="inspection_code" property="inspectionCode" jdbcType="NCHAR"/>
+        <result column="type" property="type" jdbcType="BIGINT"/>
+        <result column="put_away_location" property="putAwayLocation" jdbcType="NVARCHAR"/>
+        <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT"/>
+        <result column="hu_id" property="huId" jdbcType="NVARCHAR"/>
+        <result column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR"/>
+    </resultMap>
+    <select id="selectStoredItem" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    SELECT im.alt_item_number item_number ,
+           sto.lot_number ,
+           CASE
+               WHEN sto.type>0 THEN N'已分配'
+               ELSE tp.description
+           END prod_status ,
+           dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id) manu_date ,
+           convert(varchar(100),sto.expiration_date,23) expiry_date ,
+           wh.name whse_name ,
+           sto.actual_qty-sto.unavailable_qty qty ,
+           tc.long_client_code ,
+           tc.addr1 store_name ,
+              tc.ext_code ,
+              sto.fifo_date ,
+              tc.addr2 platname
+    FROM t_stored_item sto
+    LEFT JOIN v_type tp ON sto.type=tp.type AND tp.source='t_stored_item' AND tp.locale_id='2052'
+    LEFT JOIN t_whse wh ON wh.wh_id=sto.wh_id
+  INNER JOIN t_item_master im ON im.wh_id=sto.wh_id and im.item_number=sto.item_number
+  INNER JOIN t_client tc ON sto.wh_id=tc.wh_id and tc.client_code=im.client_code
+    WHERE tc.ext_code=#{branch}
+      AND tc.long_client_code=#{store}
+  </select>
+    <select id="selectStoreInfo" resultType="org.shrek.hadata.service.hwms.model.QimenStoredInfo"
+            parameterType="java.util.HashMap">
+              SELECT sto.wh_id warehouse_code
+            ,sto.item_number item_code
+            ,(CASE WHEN sto.type &lt; 0 THEN 'CC' ELSE 'ZP' END) store_type
+            ,sto.type inventory_type
+            ,sum(sto.actual_qty) quantity
+            ,sto.lot_number batch_code
+            ,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id) product_date
+            ,sto.expiration_date expire_date
+            ,sto.lot_number produce_code
+        FROM t_stored_item sto
+            INNER JOIN t_item_master itm
+            ON sto.item_number = itm.item_number
+            AND sto.wh_id = itm.wh_id
+        WHERE sto.item_number = #{item_number}
+            AND sto.wh_id = #{wh_id}
+            AND itm.client_code = #{client_code}
+        group by sto.lot_number
+                ,dbo.usf_HT_get_dynamic_attributes('Production Date', sto.stored_attribute_id)
+                ,sto.expiration_date
+                ,sto.lot_number
+                ,sto.wh_id
+                ,sto.item_number
+                ,sto.type
+    </select>
+</mapper>

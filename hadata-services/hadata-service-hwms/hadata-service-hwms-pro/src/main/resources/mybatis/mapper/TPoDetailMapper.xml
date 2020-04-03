@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TPoDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TPoDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <id column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <id column="schedule_number" property="scheduleNumber" jdbcType="INTEGER" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="qty" property="qty" jdbcType="DOUBLE" />
+    <result column="vendor_item_number" property="vendorItemNumber" jdbcType="NVARCHAR" />
+    <result column="delivery_date" property="deliveryDate" jdbcType="TIMESTAMP" />
+    <result column="originator" property="originator" jdbcType="NVARCHAR" />
+    <result column="order_uom" property="orderUom" jdbcType="NVARCHAR" />
+    <result column="special_processing" property="specialProcessing" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="distro_process" property="distroProcess" jdbcType="NVARCHAR" />
+    <result column="vas_profile_id" property="vasProfileId" jdbcType="INTEGER" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="earliest_ship_date" property="earliestShipDate" jdbcType="TIMESTAMP" />
+    <result column="latest_ship_date" property="latestShipDate" jdbcType="TIMESTAMP" />
+    <result column="earliest_delivery_date" property="earliestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="latest_delivery_date" property="latestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="so_number" property="soNumber" jdbcType="NVARCHAR" />
+    <result column="so_line_number" property="soLineNumber" jdbcType="NVARCHAR" />
+      <result column="price" property="price" jdbcType="DOUBLE" />
+      <result column="price2" property="price2" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectInBoundsByOutB2C" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TPoDetail">
+     SELECT r.lot_number lotNumber
+      ,'1' vasProfileId
+      ,im.display_item_number itemNumber
+      ,pd.unit_price scheduleNumber
+      ,isnull(pd.unit_price_real,0)  vasProfileId
+      ,r.qty_received qty
+      ,pd.wh_id whId
+      ,pm.client_code  locationId
+      ,isnull(zl.zone,'SD') specialProcessing
+      ,isnull(cl.class_id,'RL01')  distroProcess
+      ,pd.po_number poNumber
+      FROM t_po_detail pd
+      LEFT JOIN t_po_master pm
+      ON pd.wh_id = pm.wh_id
+      AND pd.po_number = pm.po_number
+      LEFT JOIN t_receipt r
+      ON pd.wh_id = r.wh_id
+      AND pd.po_number = r.po_number
+      AND pd.line_number = r.line_number
+      LEFT JOIN t_item_master im
+      ON pd.item_number = im.item_number
+      AND pd.wh_id = im.wh_id
+      LEFT JOIN t_zone_loca zl
+      ON zl.location_id = r.location_id
+      AND zl.wh_id = r.wh_id
+      LEFT JOIN t_class_loca cl
+      ON cl.location_id = r.location_id
+      AND cl.wh_id = r.wh_id
+      WHERE pm.wh_id = #{whse}
+      AND pm.status = 'C'
+      AND pm.is_send_back=0
+      AND pm.type_id=#{type}
+  </select>
+    <select id="selectInBoundsByOutB2CT" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TPoDetail">
+     SELECT r.lot_number lotNumber
+      ,pd.unit_price vasProfileId
+      ,im.display_item_number itemNumber
+      ,pd.unit_price_real scheduleNumber
+      ,isnull(pd.unit_price_real,0)  vasProfileId
+      ,r.qty_received qty
+      ,pd.wh_id whId
+      ,pm.client_code  locationId
+      ,isnull(zl.zone,'SD') specialProcessing
+      ,isnull(cl.class_id,'RL01')  distroProcess
+      ,pd.po_number poNumber
+      FROM t_po_detail pd
+      LEFT JOIN t_po_master pm
+      ON pd.wh_id = pm.wh_id
+      AND pd.po_number = pm.po_number
+      LEFT JOIN t_receipt r
+      ON pd.wh_id = r.wh_id
+      AND pd.po_number = r.po_number
+      AND pd.line_number = r.line_number
+      LEFT JOIN t_item_master im
+      ON pd.item_number = im.item_number
+      AND pd.wh_id = im.wh_id
+      LEFT JOIN t_zone_loca zl
+      ON zl.location_id = r.location_id
+      AND zl.wh_id = r.wh_id
+      LEFT JOIN t_class_loca cl
+      ON cl.location_id = r.location_id
+      AND cl.wh_id = r.wh_id
+      WHERE pm.wh_id = #{whse}
+      AND pm.status = 'C'
+      AND pm.is_send_back=1
+      AND pm.type_id=#{type}
+  </select>
+    <select id="selectOutBoundsByOutB2C" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TPoDetail">
+     SELECT isnull(ttl.lot_number,'') lotNumber
+      ,im.display_item_number itemNumber
+      ,isnull(od.unit_price,0) price
+      ,isnull(od.unit_price_real,0)  price2
+      ,ttl.tran_qty qty
+      ,pd.wh_id whId
+      ,o.client_code  locationId
+      ,isnull(zl.zone,'SD') specialProcessing
+      ,isnull(cl.class_id,'RL01')  distroProcess
+      ,o.order_number poNumber
+      FROM t_order o
+      LEFT JOIN t_tran_log ttl
+	  ON o.order_number=ttl.control_number
+	  AND o.wh_id=ttl.wh_id
+	  AND ttl.tran_type='301'
+	  LEFT JOIN t_item_master im
+      ON ttl.item_number = im.item_number
+      AND ttl.wh_id = im.wh_id
+	  LEFT JOIN t_pick_detail pd
+	  ON ttl.control_number_2=pd.pick_id
+	  LEFT JOIN t_order_detail od
+	  ON od.wh_id=pd.wh_id
+	  AND od.order_number=pd.order_number
+	  AND od.line_number=pd.line_number
+	  LEFT JOIN t_zone_loca zl
+	  ON zl.wh_id=ttl.wh_id
+	  AND zl.location_id=ttl.location_id
+	  LEFT JOIN t_class_loca cl
+	  ON cl.wh_id=ttl.wh_id
+	  AND cl.location_id=ttl.location_id
+      WHERE o.wh_id = #{whse}
+      AND o.status = 'S'
+      AND o.is_send_back=0
+      AND ttl.tran_type='301'
+	  order by pd.order_number,pd.line_number
+  </select>
+    <select id="selectOutBoundsByOutB2CT" parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.hwms.model.TPoDetail">
+     SELECT isnull(ttl.lot_number,'') lotNumber
+      ,im.display_item_number itemNumber
+      ,isnull(od.unit_price,0) price
+      ,isnull(od.unit_price_real,0)  price2
+      ,ttl.tran_qty qty
+      ,pd.wh_id whId
+      ,o.client_code  locationId
+      ,isnull(zl.zone,'SD') specialProcessing
+      ,isnull(cl.class_id,'RL01')  distroProcess
+      ,o.order_number poNumber
+      FROM t_order o
+      LEFT JOIN t_tran_log ttl
+	  ON o.order_number=ttl.control_number
+	  AND o.wh_id=ttl.wh_id
+	  AND ttl.tran_type='301'
+	  LEFT JOIN t_item_master im
+      ON ttl.item_number = im.item_number
+      AND ttl.wh_id = im.wh_id
+	  LEFT JOIN t_pick_detail pd
+	  ON ttl.control_number_2=pd.pick_id
+	  LEFT JOIN t_order_detail od
+	  ON od.wh_id=pd.wh_id
+	  AND od.order_number=pd.order_number
+	  AND od.line_number=pd.line_number
+	  LEFT JOIN t_zone_loca zl
+	  ON zl.wh_id=ttl.wh_id
+	  AND zl.location_id=ttl.location_id
+	  LEFT JOIN t_class_loca cl
+	  ON cl.wh_id=ttl.wh_id
+	  AND cl.location_id=ttl.location_id
+      WHERE o.wh_id = #{whse}
+      AND o.status = 'S'
+      AND o.is_send_back=1
+      AND ttl.tran_type='301'
+	  order by pd.order_number,pd.line_number
+  </select>
+</mapper>

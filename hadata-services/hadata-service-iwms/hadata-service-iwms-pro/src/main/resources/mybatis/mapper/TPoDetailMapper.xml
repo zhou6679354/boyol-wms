@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TPoDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TPoDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <id column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <id column="schedule_number" property="scheduleNumber" jdbcType="INTEGER" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="qty" property="qty" jdbcType="DOUBLE" />
+    <result column="vendor_item_number" property="vendorItemNumber" jdbcType="NVARCHAR" />
+    <result column="delivery_date" property="deliveryDate" jdbcType="TIMESTAMP" />
+    <result column="originator" property="originator" jdbcType="NVARCHAR" />
+    <result column="order_uom" property="orderUom" jdbcType="NVARCHAR" />
+    <result column="special_processing" property="specialProcessing" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="distro_process" property="distroProcess" jdbcType="NVARCHAR" />
+    <result column="vas_profile_id" property="vasProfileId" jdbcType="INTEGER" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="earliest_ship_date" property="earliestShipDate" jdbcType="TIMESTAMP" />
+    <result column="latest_ship_date" property="latestShipDate" jdbcType="TIMESTAMP" />
+    <result column="earliest_delivery_date" property="earliestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="latest_delivery_date" property="latestDeliveryDate" jdbcType="TIMESTAMP" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="so_number" property="soNumber" jdbcType="NVARCHAR" />
+    <result column="so_line_number" property="soLineNumber" jdbcType="NVARCHAR" />
+      <result column="measuring_number" property="measuringNumber" jdbcType="NVARCHAR" />
+      <result column="color_number" property="colorNumber" jdbcType="NVARCHAR" />
+      <result column="st_code" property="stCode" jdbcType="NVARCHAR" />
+      <result column="st_name" property="stName" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="selectReceivePoDetail"  parameterType="java.util.HashMap" resultType="org.shrek.hadata.service.iwms.model.TPoDetail">
+      SELECT pd.po_number
+            ,pd.wh_id
+            ,pd.item_number
+            ,pd.line_number
+            ,pd.qty
+            ,(SELECT sum(rspd.received_qty)
+                FROM t_rcpt_ship_po_detail rspd
+                WHERE rspd.wh_id = pd.wh_id
+                    AND rspd.po_number = pd.po_number
+                    AND rspd.line_number = pd.line_number) actualQty
+        FROM t_po_detail pd
+        WHERE pd.wh_id = #{whse}
+            AND pd.po_number = #{poNumber}
+    </select>
+</mapper>

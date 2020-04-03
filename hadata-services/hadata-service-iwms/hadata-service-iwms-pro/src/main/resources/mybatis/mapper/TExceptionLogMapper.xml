@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TExceptionLogMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TExceptionLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="exception_id" property="exceptionId" jdbcType="INTEGER" />
+    <result column="tran_type" property="tranType" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="exception_date" property="exceptionDate" jdbcType="TIMESTAMP" />
+    <result column="exception_time" property="exceptionTime" jdbcType="TIMESTAMP" />
+    <result column="employee_id" property="employeeId" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="suggested_value" property="suggestedValue" jdbcType="NVARCHAR" />
+    <result column="entered_value" property="enteredValue" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="DOUBLE" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="load_id" property="loadId" jdbcType="NVARCHAR" />
+    <result column="control_number" property="controlNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <result column="tracking_number" property="trackingNumber" jdbcType="NVARCHAR" />
+    <result column="error_code" property="errorCode" jdbcType="NVARCHAR" />
+    <result column="error_message" property="errorMessage" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="type" property="type" jdbcType="BIGINT" />
+    <result column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <result column="after_lot_number" property="afterLotNumber" jdbcType="NVARCHAR" />
+    <result column="before_expiration_date" property="beforeExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="after_expiration_date" property="afterExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="stored_attribute_id2" property="storedAttributeId2" jdbcType="BIGINT" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+  </resultMap>
+</mapper>

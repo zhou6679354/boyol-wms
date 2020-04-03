@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TPoMasterMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TPoMaster" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="vendor_code" property="vendorCode" jdbcType="NVARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="display_po_number" property="displayPoNumber" jdbcType="NVARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="residential_flag" property="residentialFlag" jdbcType="NVARCHAR" />
+    <result column="ship_from_name" property="shipFromName" jdbcType="NVARCHAR" />
+    <result column="ship_from_addr1" property="shipFromAddr1" jdbcType="NVARCHAR" />
+    <result column="ship_from_addr2" property="shipFromAddr2" jdbcType="NVARCHAR" />
+    <result column="ship_from_city" property="shipFromCity" jdbcType="NVARCHAR" />
+    <result column="ship_from_state" property="shipFromState" jdbcType="NVARCHAR" />
+    <result column="ship_from_postal_code" property="shipFromPostalCode" jdbcType="NVARCHAR" />
+    <result column="ship_from_country_code" property="shipFromCountryCode" jdbcType="NVARCHAR" />
+    <result column="ship_from_attention" property="shipFromAttention" jdbcType="NVARCHAR" />
+    <result column="ship_from_phone" property="shipFromPhone" jdbcType="NVARCHAR" />
+    <result column="ship_from_fax" property="shipFromFax" jdbcType="NVARCHAR" />
+    <result column="carrier_scac" property="carrierScac" jdbcType="NVARCHAR" />
+    <result column="carrier_mode" property="carrierMode" jdbcType="NVARCHAR" />
+    <result column="service_level" property="serviceLevel" jdbcType="NVARCHAR" />
+    <result column="freight_terms" property="freightTerms" jdbcType="NVARCHAR" />
+    <result column="lock_flag" property="lockFlag" jdbcType="NVARCHAR" />
+    <result column="vendor_name" property="vendorName" jdbcType="NVARCHAR" />
+  </resultMap>
+  <update id="updateInOrderCancel" parameterType="org.shrek.hadata.service.iwms.model.TPoMaster">
+    update t_po_master
+    <set>
+      <if test="status != null">status=#{status},</if>
+      <if test="serviceLevel != null">service_level=#{serviceLevel}</if>
+    </set>
+    where po_number=#{poNumber}
+    and wh_id=#{whId}
+    and type_id=#{typeId}
+  </update>
+  <select id="queryPoNumber" parameterType="org.shrek.hadata.service.iwms.model.TPoMaster" resultType="java.lang.String">
+        SELECT p.po_number
+        FROM t_po_master p
+        WHERE p.wh_id=#{whId}
+         AND p.client_code=#{clientCode}
+          AND p.create_date= convert(char(10),GetDate(),120)
+    </select>
+  <select id="selectByWhses" parameterType="java.util.List" resultType="org.shrek.hadata.service.iwms.model.TPoMaster">
+        SELECT p.po_number as poNumber,
+        p.wh_id as whId,
+        p.type_id as typeId,
+    p.vendor_code as vendorCode,
+    p.create_date as createDate,
+    p.status as status,
+    p.display_po_number as displayPoNumber,
+    p.client_code as clientCode,
+    p.residential_flag as residentialFlag,
+    p.ship_from_name as shipFromName,
+    p.ship_from_addr1 as shipFromAddr1,
+    p.ship_from_addr2 as shipFromAddr2,
+    p.ship_from_city as shipFromCity,
+    p.ship_from_state as shipFromState,
+    p.ship_from_postal_code as shipFromPostalCode,
+    p.ship_from_country_code as shipFromCountryCode,
+    p.ship_from_attention as shipFromAttention,
+    p.ship_from_phone as shipFromPhone,
+    p.ship_from_fax as shipFromFax,
+    p.carrier_scac as carrierScac,
+    p.carrier_mode as carrierMode,
+    p.service_level as serviceLevel,
+    p.freight_terms as freightTerms,
+    p.lock_flag as lockFlag,
+    p.vendor_name as vendorName,
+    p.interface_id as interfaceId,
+    p.is_send_back as isSendBack
+        FROM t_po_master p
+        WHERE p.wh_id in
+    <foreach collection="list" index="index" item="whId" open="(" close=")" separator=",">
+      #{whId,jdbcType=VARCHAR}
+    </foreach>
+         AND p.status='C'
+          AND p.is_send_back!='1'
+    </select>
+</mapper>

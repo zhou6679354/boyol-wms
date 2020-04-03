@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TLocationMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TLocation" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="short_location_id" property="shortLocationId" jdbcType="NVARCHAR" />
+    <result column="status" property="status" jdbcType="NCHAR" />
+    <result column="zone" property="zone" jdbcType="NVARCHAR" />
+    <result column="picking_flow" property="pickingFlow" jdbcType="NVARCHAR" />
+    <result column="capacity_uom" property="capacityUom" jdbcType="NVARCHAR" />
+    <result column="capacity_qty" property="capacityQty" jdbcType="DOUBLE" />
+    <result column="stored_qty" property="storedQty" jdbcType="DOUBLE" />
+    <result column="type" property="type" jdbcType="NCHAR" />
+    <result column="fifo_date" property="fifoDate" jdbcType="TIMESTAMP" />
+    <result column="cycle_count_class" property="cycleCountClass" jdbcType="NCHAR" />
+    <result column="last_count_date" property="lastCountDate" jdbcType="TIMESTAMP" />
+    <result column="last_physical_date" property="lastPhysicalDate" jdbcType="TIMESTAMP" />
+    <result column="user_count" property="userCount" jdbcType="INTEGER" />
+    <result column="capacity_volume" property="capacityVolume" jdbcType="DOUBLE" />
+    <result column="time_between_maintenance" property="timeBetweenMaintenance" jdbcType="DOUBLE" />
+    <result column="last_maintained" property="lastMaintained" jdbcType="TIMESTAMP" />
+    <result column="length" property="length" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="replenishment_location_id" property="replenishmentLocationId" jdbcType="NVARCHAR" />
+    <result column="pick_area" property="pickArea" jdbcType="NVARCHAR" />
+    <result column="allow_bulk_pick" property="allowBulkPick" jdbcType="NVARCHAR" />
+    <result column="slot_rank" property="slotRank" jdbcType="INTEGER" />
+    <result column="slot_status" property="slotStatus" jdbcType="NVARCHAR" />
+    <result column="item_hu_indicator" property="itemHuIndicator" jdbcType="NCHAR" />
+    <result column="c1" property="c1" jdbcType="NVARCHAR" />
+    <result column="c2" property="c2" jdbcType="NVARCHAR" />
+    <result column="c3" property="c3" jdbcType="NVARCHAR" />
+    <result column="random_cc" property="randomCc" jdbcType="DOUBLE" />
+    <result column="x_coordinate" property="xCoordinate" jdbcType="NUMERIC" />
+    <result column="y_coordinate" property="yCoordinate" jdbcType="NUMERIC" />
+    <result column="z_coordinate" property="zCoordinate" jdbcType="NUMERIC" />
+    <result column="storage_device_id" property="storageDeviceId" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

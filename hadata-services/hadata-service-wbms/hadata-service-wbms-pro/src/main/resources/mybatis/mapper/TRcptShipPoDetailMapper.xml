@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TRcptShipPoDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TRcptShipPoDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <id column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <id column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <id column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <id column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <id column="schedule_number" property="scheduleNumber" jdbcType="INTEGER" />
+    <result column="expected_qty" property="expectedQty" jdbcType="DOUBLE" />
+    <result column="received_qty" property="receivedQty" jdbcType="DOUBLE" />
+    <result column="reconciled_date" property="reconciledDate" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="so_number" property="soNumber" jdbcType="NVARCHAR" />
+    <result column="so_line_number" property="soLineNumber" jdbcType="NVARCHAR" />
+  </resultMap>
+</mapper>

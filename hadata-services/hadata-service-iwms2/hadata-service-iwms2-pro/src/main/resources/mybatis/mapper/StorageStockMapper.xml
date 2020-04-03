@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.StorageStockMapper">
+
+    <select id="queryStorageStockByWhId" parameterType="org.shrek.hadata.service.iwms.model.TOrder" resultType="org.shrek.hadata.service.iwms.model.StorageStock">
+         select o.order_number as orderNumber,
+                d.item_number as itemNumber,
+                s.location_id as locationId,
+                sum(s.actual_qty) as actualQty,
+                sum(s.unavailable_qty) as unavailableQty,
+                d.wave_id as waveId
+                from t_order o
+                left join t_pick_detail d
+                on d.order_number=o.order_number
+                and o.wh_id=d.wh_id
+                left join t_stored_item s
+                on s.type=d.pick_id
+                and s.wh_id=d.wh_id
+                where o.wh_id=#{whId}
+                and d.load_id is null
+                and s.sto_id is not null
+                group by o.order_number,d.item_number,s.location_id,d.wave_id
+    </select>
+    <select id="queryTblOrderSynWisdomByWhId" parameterType="org.shrek.hadata.service.iwms.model.TblOrderSynWisdom" resultType="org.shrek.hadata.service.iwms.model.TblOrderSynWisdom">
+       select
+	t.itemNumber,
+	t.qtyShipped,
+	t.orderNumber,
+	t.procType,
+	t.clientCode,
+	t.shipToCity,
+	t.waveId
+from
+	(select pd.item_number as itemNumber,
+			d.afo_plan_qty as qtyShipped,
+			osw.order_number as orderNumber,
+			osw.proc_type as procType,
+			o.client_code as clientCode,
+			o.ship_to_city as shipToCity,
+			pd.wave_id as waveId,
+			ROW_NUMBER() over(PARTITION by
+			pd.order_number,
+			pd.item_number,
+			o.client_code
+		order by
+			osw.init_date desc) as num
+		from
+			t_pick_detail pd
+		left join t_order_detail d on
+			d.order_number = pd.order_number
+			and pd.wh_id = d.wh_id
+		left join tbl_order_syn_wisdom osw on
+			pd.order_number = osw.order_number
+			and osw.wh_id = pd.wh_id
+		left join t_order o on
+			pd.order_number = o.order_number
+			and o.wh_id = pd.wh_id
+		where
+			pd.wh_id = #{whId}
+			and osw.syn_flag = #{synFlag}) t
+	where
+		t.num = 1
+    </select>
+    <select id="getTblItemSynWisdom" parameterType="org.shrek.hadata.service.iwms.model.TblItemSynWisdom" resultType="org.shrek.hadata.service.iwms.model.TblItemSynWisdom">
+       select isw.item_number as itemNumber,
+                isw.length as leng,
+                isw.height as height,
+                isw.width as width,
+                isw.unit_weight as unitWeight,
+                isw.proc_type as procType
+                from tbl_item_syn_wisdom isw
+                where isw.wh_id=#{whId}
+                and isw.syn_flag =#{synFlag}
+    </select>
+    <select id="queryTStoredItemByWhId" parameterType="org.shrek.hadata.service.iwms.model.TStoredItem" resultType="org.shrek.hadata.service.iwms.model.TStoredItem">
+       select max(s.location_id) as locationId,
+            sum(s.actual_qty) as actualQty,
+            sum(s.unavailable_qty) as unavailableQty,
+            max(s.item_number) as itemNumber
+            from t_stored_item s
+            where  0>=s.type
+            and s.wh_id=#{whId}
+            group by s.wh_id,s.item_number,s.location_id
+    </select>
+    <update id="updateTblOrderSynWisdom" parameterType="org.shrek.hadata.service.iwms.model.TblOrderSynWisdom">
+        update tbl_order_syn_wisdom
+        <set>
+            <if test="synFlag != null">syn_flag=#{synFlag}</if>
+        </set>
+        where order_number=#{orderNumber}
+        and wh_id=#{whId}
+    </update>
+    <update id="updateTblItemSynWisdom" parameterType="org.shrek.hadata.service.iwms.model.TblItemSynWisdom">
+        update tbl_item_syn_wisdom
+        <set>
+            <if test="synFlag != null">syn_flag=#{synFlag}</if>
+        </set>
+        where item_number=#{itemNumber}
+        and wh_id=#{whId}
+    </update>
+</mapper>

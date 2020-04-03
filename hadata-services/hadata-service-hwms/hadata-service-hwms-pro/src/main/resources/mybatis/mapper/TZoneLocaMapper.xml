@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TZoneLocaMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TZoneLoca" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <id column="zone" property="zone" jdbcType="NVARCHAR" />
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="pick_seq" property="pickSeq" jdbcType="NVARCHAR" />
+  </resultMap>
+</mapper>

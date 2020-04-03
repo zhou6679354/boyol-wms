@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TiReceiveOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TiReceiveOrderDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="master_id" property="masterId" jdbcType="VARCHAR" />
+    <result column="product_code" property="productCode" jdbcType="NVARCHAR" />
+    <result column="product_desc" property="productDesc" jdbcType="NVARCHAR" />
+    <result column="product_unit" property="productUnit" jdbcType="NVARCHAR" />
+    <result column="product_batch" property="productBatch" jdbcType="NVARCHAR" />
+    <result column="product_make_date" property="productMakeDate" jdbcType="NVARCHAR" />
+    <result column="product_expiration_date" property="productExpirationDate" jdbcType="NVARCHAR" />
+    <result column="product_expiry_date" property="productExpiryDate" jdbcType="NVARCHAR" />
+    <result column="product_num" property="productNum" jdbcType="NVARCHAR" />
+    <result column="product_box_num" property="productBoxNum" jdbcType="NVARCHAR" />
+    <result column="product_bulk_num" property="productBulkNum" jdbcType="NVARCHAR" />
+    <result column="product_arrival_date" property="productArrivalDate" jdbcType="NVARCHAR" />
+    <result column="product_unit_price" property="productUnitPrice" jdbcType="NVARCHAR" />
+    <result column="product_total_price" property="productTotalPrice" jdbcType="NVARCHAR" />
+    <result column="product_quality" property="productQuality" jdbcType="NVARCHAR" />
+    <result column="product_back_reason" property="productBackReason" jdbcType="NVARCHAR" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="active_flag" property="activeFlag" jdbcType="NCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="NVARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="DATE" />
+    <result column="last_updated_by" property="lastUpdatedBy" jdbcType="NVARCHAR" />
+    <result column="last_updated_date" property="lastUpdatedDate" jdbcType="DATE" />
+  </resultMap>
+</mapper>

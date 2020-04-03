@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TWaveMasterMapper">
+
+
+    <update id="updateWaIdStatusTrue" parameterType="java.util.HashMap">
+        update t_wave_master
+        <set>
+            <if test="status != null">wave_syn_status=#{waveSynStatus}</if>
+        </set>
+        where wh_id=#{whId}
+        and picking_method=#{pickingMethod}
+        and wave_id=#{waveId}
+    </update>
+    <update id="updateWaveCancelStatusDoing" parameterType="java.util.HashMap">
+        update t_wave_master
+        <set>
+            <if test="status != null">wave_cancel_status=#{waveCancelStatus},</if>
+            <if test="serviceLevel != null">wave_cancel_remark=#{waveCancelRemark}</if>
+        </set>
+        where wh_id=#{whId}
+        and picking_method=#{pickingMethod}
+        and wave_id=#{waveId}
+    </update>
+    <select id="queryWaIdByWhId" parameterType="java.util.HashMap" resultType="java.lang.String">
+       select w.wave_id
+            from t_wave_master w
+            where  w.wave_syn_status=#{waveSynStatus}
+            and w.wave_cancel_status=#{waveCancelStatus}
+            and w.wh_id=#{whId}
+            and w.picking_method=#{pickingMethod}
+    </select>
+</mapper>

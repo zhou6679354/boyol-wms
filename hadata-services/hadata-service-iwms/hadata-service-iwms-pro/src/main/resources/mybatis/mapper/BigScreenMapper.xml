@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.BigScreenMapper" >
+  <select id="queryBigScreen" parameterType="org.shrek.hadata.service.iwms.model.QueryCity" resultType="org.shrek.hadata.service.iwms.model.BigScreen">
+	  select
+	  Convert(decimal(18,3), sum(temp.inorderthroughput)) as inorderthroughput,
+	  Convert(decimal(18,3), sum(temp.outorderthroughput)) as outorderthroughput,
+	  Convert(decimal(18,3), sum(temp.inorderthroughput)+ sum(temp.outorderthroughput)) as throughput,
+	  temp.whId as whId,
+	  temp.categoriesCommodities as categoriesCommodities,
+	  case
+	  LEN(convert(varchar(10),
+	  temp.querMonth))
+	  when 1 then convert(varchar(10),
+	  temp.querYear)+ '-0' + convert(varchar(10),
+	  temp.querMonth)
+	  else convert(varchar(10),
+	  temp.querYear)+ '-' + convert(varchar(10),
+	  temp.querMonth)
+	  end as queryDate
+	  from
+	  (
+	  select
+	  sum(r.qty_received*i.unit_volume) as inorderthroughput,
+	  0 as outorderthroughput,
+	  Datepart(year,
+	  r.receipt_date) as querYear,
+	  Datepart(month,
+	  r.receipt_date) as querMonth,
+	  r.wh_id as whId,
+	  i.upc as categoriesCommodities
+	  from
+	  t_receipt r
+	  left join t_item_master i on
+	  i.item_number = r.item_number
+	  where
+	  r.wh_id =#{cityCode}
+	  and i.upc is not null
+	  <![CDATA[and Datepart(month,
+	  r.receipt_date)=Datepart(month,
+	  GETDATE())]]>
+	  <![CDATA[and Datepart(year,
+	  r.receipt_date)= Datepart(year,
+	  GETDATE())]]>
+	  group by
+	  Datepart(year,
+	  r.receipt_date),
+	  Datepart(month,
+	  r.receipt_date),
+	  i.upc,
+	  r.wh_id
+	  union all
+	  select
+	  0 as inorderthroughput,
+	  sum(p.allocated_qty*i.unit_volume) as outorderthroughput,
+	  Datepart(year,
+	  p.create_date) as querYear,
+	  Datepart(month,
+	  p.create_date) as querMonth,
+	  p.wh_id as whId,
+	  i.upc as categoriesCommodities
+	  from
+	  t_pick_detail p
+	  left join t_item_master i on
+	  i.item_number = p.item_number
+	  where
+	  p.wh_id =#{cityCode}
+	  and i.upc is not null
+	  <![CDATA[and Datepart(month,
+	  p.create_date)=Datepart(month,
+	  GETDATE())]]>
+	  <![CDATA[and Datepart(year,
+	  p.create_date)= Datepart(year,
+	  GETDATE())]]>
+	  group by
+	  Datepart(year,
+	  p.create_date),
+	  Datepart(month,
+	  p.create_date),
+	  i.upc,
+	  p.wh_id) as temp
+	  group by
+	  temp.querYear,
+	  temp.querMonth,
+	  temp.whId,
+	  temp.categoriesCommodities
+	  union all
+	  select
+	  Convert(decimal(18,3), sum(temp.inorderthroughput)) as inorderthroughput,
+	  Convert(decimal(18,3), sum(temp.outorderthroughput)) as outorderthroughput,
+	  Convert(decimal(18,3), sum(temp.inorderthroughput)+ sum(temp.outorderthroughput)) as throughput,
+	  temp.whId as whId,
+	  temp.categoriesCommodities as categoriesCommodities,
+	  case
+	  LEN(convert(varchar(10),
+	  temp.querMonth))
+	  when 1 then convert(varchar(10),
+	  temp.querYear)+ '-0' + convert(varchar(10),
+	  temp.querMonth)
+	  else convert(varchar(10),
+	  temp.querYear)+ '-' + convert(varchar(10),
+	  temp.querMonth)
+	  end as queryDate
+	  from
+	  (
+	  select
+	  sum(r.qty_received*i.unit_volume) as inorderthroughput,
+	  0 as outorderthroughput,
+	  Datepart(year,
+	  r.receipt_date) as querYear,
+	  Datepart(month,
+	  r.receipt_date) as querMonth,
+	  r.wh_id as whId,
+	  '惠氏POP' as categoriesCommodities
+	  from
+	  t_receipt r
+	  left join t_item_master i on
+	  i.item_number = r.item_number
+	  where
+	  r.wh_id =#{popCityCode}
+	  <![CDATA[and Datepart(month,
+	  r.receipt_date)>Datepart(month,
+	  GETDATE())-7]]>
+	  <![CDATA[and Datepart(month,
+	  r.receipt_date)<Datepart(month,
+	  GETDATE())]]>
+	  <![CDATA[and Datepart(year,
+	  r.receipt_date)= Datepart(year,
+	  GETDATE())]]>
+	  group by
+	  Datepart(year,
+	  r.receipt_date),
+	  Datepart(month,
+	  r.receipt_date),
+	  r.wh_id
+	  union all
+	  select
+	  0 as inorderthroughput,
+	  sum(p.allocated_qty*i.unit_volume) as outorderthroughput,
+	  Datepart(year,
+	  p.create_date) as querYear,
+	  Datepart(month,
+	  p.create_date) as querMonth,
+	  p.wh_id as whId,
+	  '惠氏POP' as categoriesCommodities
+	  from
+	  t_pick_detail p
+	  left join t_item_master i on
+	  i.item_number = p.item_number
+	  where
+	  p.wh_id =#{popCityCode}
+	  <![CDATA[and Datepart(month,
+	  p.create_date)>Datepart(month,
+	  GETDATE())-7]]>
+	  <![CDATA[and Datepart(month,
+	  p.create_date)<Datepart(month,
+	  GETDATE())]]>
+	  <![CDATA[and Datepart(year,
+	  p.create_date)= Datepart(year,
+	  GETDATE())]]>
+	  group by
+	  Datepart(year,
+	  p.create_date),
+	  Datepart(month,
+	  p.create_date),
+	  p.wh_id) as temp
+	  group by
+	  temp.querYear,
+	  temp.querMonth,
+	  temp.whId,
+	  temp.categoriesCommodities
+    </select>
+	<select id="queryBigScreenStorck" parameterType="org.shrek.hadata.service.iwms.model.QueryCity" resultType="org.shrek.hadata.service.iwms.model.BigScreenStorck">
+	 select
+	s.wh_id as whId,
+	i.upc as categoriesCommodities,
+	Convert(decimal(18,
+	3),
+	sum(s.actual_qty*i.unit_volume)) as throughput,
+	Datepart(hour,
+	GETDATE()) as queryDate
+from
+	t_stored_item s
+left join t_item_master i on
+	i.item_number = s.item_number
+where
+	s.wh_id = #{cityCode}
+	and i.upc is not null
+group by
+	s.wh_id,
+	i.upc
+union all select
+	s.wh_id as whId,
+	'惠氏POP' as categoriesCommodities,
+	Convert(decimal(18,
+	3),
+	s.total_volume) as throughput,
+	Datepart(hour,
+	s.create_date) as queryDate
+from
+	tbl_sto_collection s
+where
+	s.wh_id = #{popCityCode}
+	and Datepart(month,
+	s.create_date)= Datepart(month,
+	GETDATE())
+	and Datepart(year,
+	s.create_date)= Datepart(year,
+	GETDATE())
+	and Datepart(day,
+	s.create_date)= Datepart(day,
+	GETDATE())
+    </select>
+</mapper>

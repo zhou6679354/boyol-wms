@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TCustomerMapper">
+    <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TCustomer">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="customer_id" jdbcType="INTEGER" property="customerId"/>
+        <result column="customer_code" jdbcType="NVARCHAR" property="customerCode"/>
+        <result column="customer_name" jdbcType="NVARCHAR" property="customerName"/>
+        <result column="customer_addr1" jdbcType="NVARCHAR" property="customerAddr1"/>
+        <result column="customer_addr2" jdbcType="NVARCHAR" property="customerAddr2"/>
+        <result column="customer_addr3" jdbcType="NVARCHAR" property="customerAddr3"/>
+        <result column="customer_city" jdbcType="NVARCHAR" property="customerCity"/>
+        <result column="customer_state" jdbcType="NVARCHAR" property="customerState"/>
+        <result column="customer_zip" jdbcType="NVARCHAR" property="customerZip"/>
+        <result column="customer_country_code" jdbcType="NVARCHAR" property="customerCountryCode"/>
+        <result column="customer_country_name" jdbcType="NVARCHAR" property="customerCountryName"/>
+        <result column="customer_phone" jdbcType="NVARCHAR" property="customerPhone"/>
+        <result column="customer_email" jdbcType="NVARCHAR" property="customerEmail"/>
+        <result column="customer_category" jdbcType="NVARCHAR" property="customerCategory"/>
+        <result column="customer_priority" jdbcType="NVARCHAR" property="customerPriority"/>
+        <result column="customer_ship_method" jdbcType="NVARCHAR" property="customerShipMethod"/>
+        <result column="customer_route" jdbcType="NVARCHAR" property="customerRoute"/>
+        <result column="wh_id" jdbcType="NVARCHAR" property="whId"/>
+        <result column="pick_put_id" jdbcType="NVARCHAR" property="pickPutId"/>
+        <result column="linkman" jdbcType="NVARCHAR" property="linkman"/>
+        <result column="lot_qty_limit" jdbcType="BIGINT" property="lotQtyLimit"/>
+        <result column="source_code" jdbcType="NVARCHAR" property="sourceCode"/>
+    </resultMap>
+    <select id="queryCustomerId" resultType="String" parameterType="HashMap">
+        select
+            a.customer_id
+        from
+            t_customer a,
+            t_client_customer b
+        where a.customer_id=b.customer_id
+        and b.client_code=#{client}
+        and b.wh_id=#{store}
+        and a.source_code=#{sourceCode}
+    </select>
+</mapper>

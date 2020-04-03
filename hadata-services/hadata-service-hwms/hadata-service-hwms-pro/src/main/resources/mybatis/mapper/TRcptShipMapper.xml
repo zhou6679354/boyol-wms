@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TRcptShipMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TRcptShip" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <id column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <result column="carrier_id" property="carrierId" jdbcType="INTEGER" />
+    <result column="trailer_number" property="trailerNumber" jdbcType="NVARCHAR" />
+    <result column="date_expected" property="dateExpected" jdbcType="TIMESTAMP" />
+    <result column="date_received" property="dateReceived" jdbcType="TIMESTAMP" />
+    <result column="date_shipped" property="dateShipped" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="NVARCHAR" />
+    <result column="comments" property="comments" jdbcType="NVARCHAR" />
+    <result column="workers_assigned" property="workersAssigned" jdbcType="INTEGER" />
+    <result column="pro_number" property="proNumber" jdbcType="NVARCHAR" />
+  </resultMap>
+
+  <parameterMap type="java.util.Map" id="callUspGetNextControlValueMap">
+    <parameter property="in_vchType" mode="IN" jdbcType="NVARCHAR"/>
+    <parameter property="in_description" mode="IN" jdbcType="NVARCHAR"/>
+    <parameter property="out_nUID" mode="OUT" jdbcType="NVARCHAR"/>
+    <parameter property="out_nErrorNumber" mode="OUT" jdbcType="INTEGER"/>
+    <parameter property="out_vchLogMsg" mode="OUT" jdbcType="NVARCHAR"/>
+  </parameterMap>
+
+  <select id="callUspGetNextControlValue" statementType="CALLABLE" parameterMap="callUspGetNextControlValueMap">
+    <![CDATA[  {call usp_get_next_control_value(?, ?, ?, ?, ?)} ]]>
+  </select>
+</mapper>

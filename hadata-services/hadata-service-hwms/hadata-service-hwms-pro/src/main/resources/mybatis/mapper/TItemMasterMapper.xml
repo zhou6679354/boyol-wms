@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TItemMasterMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TItemMaster" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="item_master_id" property="itemMasterId" jdbcType="INTEGER" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="uom" property="uom" jdbcType="NVARCHAR" />
+    <result column="inventory_type" property="inventoryType" jdbcType="NVARCHAR" />
+    <result column="shelf_life" property="shelfLife" jdbcType="INTEGER" />
+    <result column="alt_item_number" property="altItemNumber" jdbcType="NVARCHAR" />
+    <result column="commodity_code" property="commodityCode" jdbcType="NVARCHAR" />
+    <result column="nafta_pref_criteria" property="naftaPrefCriteria" jdbcType="NVARCHAR" />
+    <result column="nafta_producer" property="naftaProducer" jdbcType="NVARCHAR" />
+    <result column="nafta_net_cost" property="naftaNetCost" jdbcType="NVARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="std_hand_qty" property="stdHandQty" jdbcType="DOUBLE" />
+    <result column="std_qty_uom" property="stdQtyUom" jdbcType="NVARCHAR" />
+    <result column="inspection_code" property="inspectionCode" jdbcType="NVARCHAR" />
+    <result column="serial_control" property="serialControl" jdbcType="NVARCHAR" />
+    <result column="lot_control" property="lotControl" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="reorder_point" property="reorderPoint" jdbcType="DOUBLE" />
+    <result column="reorder_qty" property="reorderQty" jdbcType="DOUBLE" />
+    <result column="cycle_count_class" property="cycleCountClass" jdbcType="NVARCHAR" />
+    <result column="last_count_date" property="lastCountDate" jdbcType="TIMESTAMP" />
+    <result column="class_id" property="classId" jdbcType="NVARCHAR" />
+    <result column="pick_location" property="pickLocation" jdbcType="NVARCHAR" />
+    <result column="stacking_seq" property="stackingSeq" jdbcType="NVARCHAR" />
+    <result column="comment_flag" property="commentFlag" jdbcType="NVARCHAR" />
+    <result column="ver_flag" property="verFlag" jdbcType="NVARCHAR" />
+    <result column="upc" property="upc" jdbcType="NVARCHAR" />
+    <result column="unit_weight" property="unitWeight" jdbcType="DOUBLE" />
+    <result column="tare_weight" property="tareWeight" jdbcType="DOUBLE" />
+    <result column="haz_material" property="hazMaterial" jdbcType="NVARCHAR" />
+    <result column="inv_cat" property="invCat" jdbcType="NVARCHAR" />
+    <result column="inv_class" property="invClass" jdbcType="NVARCHAR" />
+    <result column="unit_volume" property="unitVolume" jdbcType="DOUBLE" />
+    <result column="nested_volume" property="nestedVolume" jdbcType="DOUBLE" />
+    <result column="xdock_profile_id" property="xdockProfileId" jdbcType="NVARCHAR" />
+    <result column="pick_put_id" property="pickPutId" jdbcType="NVARCHAR" />
+    <result column="length" property="length" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="sample_rate" property="sampleRate" jdbcType="INTEGER" />
+    <result column="compatibility_id" property="compatibilityId" jdbcType="INTEGER" />
+    <result column="commodity_type_id" property="commodityTypeId" jdbcType="INTEGER" />
+    <result column="freight_class_id" property="freightClassId" jdbcType="INTEGER" />
+    <result column="audit_required" property="auditRequired" jdbcType="NVARCHAR" />
+    <result column="msds_url" property="msdsUrl" jdbcType="NVARCHAR" />
+    <result column="expiration_date_control" property="expirationDateControl" jdbcType="NVARCHAR" />
+    <result column="ucc_company_prefix" property="uccCompanyPrefix" jdbcType="NVARCHAR" />
+    <result column="attribute_collection_id" property="attributeCollectionId" jdbcType="INTEGER" />
+    <result column="display_item_number" property="displayItemNumber" jdbcType="NVARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="production_date_control" property="productionDateControl" jdbcType="CHAR" />
+    <result column="lot_status_control" property="lotStatusControl" jdbcType="CHAR" />
+  </resultMap>
+</mapper>

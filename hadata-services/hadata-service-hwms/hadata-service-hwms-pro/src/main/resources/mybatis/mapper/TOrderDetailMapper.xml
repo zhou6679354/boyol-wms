@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TOrderDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_detail_id" property="orderDetailId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="item_master_id" property="itemMasterId" jdbcType="INTEGER" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="NVARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="bo_qty" property="boQty" jdbcType="DOUBLE" />
+    <result column="bo_description" property="boDescription" jdbcType="NVARCHAR" />
+    <result column="bo_weight" property="boWeight" jdbcType="DOUBLE" />
+    <result column="qty" property="qty" jdbcType="DOUBLE" />
+    <result column="afo_plan_qty" property="afoPlanQty" jdbcType="DOUBLE" />
+    <result column="unit_pack" property="unitPack" jdbcType="NVARCHAR" />
+    <result column="item_weight" property="itemWeight" jdbcType="DOUBLE" />
+    <result column="item_tare_weight" property="itemTareWeight" jdbcType="DOUBLE" />
+    <result column="haz_material" property="hazMaterial" jdbcType="NVARCHAR" />
+    <result column="b_o_l_class" property="bOLClass" jdbcType="NVARCHAR" />
+    <result column="b_o_l_line1" property="bOLLine1" jdbcType="NVARCHAR" />
+    <result column="b_o_l_line2" property="bOLLine2" jdbcType="NVARCHAR" />
+    <result column="b_o_l_line3" property="bOLLine3" jdbcType="NVARCHAR" />
+    <result column="b_o_l_plac_code" property="bOLPlacCode" jdbcType="NVARCHAR" />
+    <result column="b_o_l_plac_desc" property="bOLPlacDesc" jdbcType="NVARCHAR" />
+    <result column="b_o_l_code" property="bOLCode" jdbcType="NVARCHAR" />
+    <result column="qty_shipped" property="qtyShipped" jdbcType="DOUBLE" />
+    <result column="line_type" property="lineType" jdbcType="NVARCHAR" />
+    <result column="item_description" property="itemDescription" jdbcType="NVARCHAR" />
+    <result column="stacking_seq" property="stackingSeq" jdbcType="NVARCHAR" />
+    <result column="cust_part" property="custPart" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="picking_flow" property="pickingFlow" jdbcType="NVARCHAR" />
+    <result column="unit_weight" property="unitWeight" jdbcType="DOUBLE" />
+    <result column="unit_volume" property="unitVolume" jdbcType="DOUBLE" />
+    <result column="extended_weight" property="extendedWeight" jdbcType="DOUBLE" />
+    <result column="extended_volume" property="extendedVolume" jdbcType="DOUBLE" />
+    <result column="over_alloc_qty" property="overAllocQty" jdbcType="DOUBLE" />
+    <result column="date_expected" property="dateExpected" jdbcType="TIMESTAMP" />
+    <result column="order_uom" property="orderUom" jdbcType="NVARCHAR" />
+    <result column="host_wave_id" property="hostWaveId" jdbcType="NVARCHAR" />
+    <result column="tran_plan_qty" property="tranPlanQty" jdbcType="DOUBLE" />
+    <result column="use_shippable_uom" property="useShippableUom" jdbcType="NVARCHAR" />
+    <result column="unit_insurance_amount" property="unitInsuranceAmount" jdbcType="DOUBLE" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="hold_reason_id" property="holdReasonId" jdbcType="NVARCHAR" />
+    <result column="po_number" property="poNumber" jdbcType="NVARCHAR" />
+    <result column="po_line_number" property="poLineNumber" jdbcType="NVARCHAR" />
+    <result column="po_item_number" property="poItemNumber" jdbcType="NVARCHAR" />
+    <result column="cancel_flag" property="cancelFlag" jdbcType="VARCHAR" />
+    <result column="ori_line_number" property="oriLineNumber" jdbcType="NVARCHAR" />
+    <result column="zone" property="zone" jdbcType="NVARCHAR" />
+    <result column="pick_location" property="pickLocation" jdbcType="NVARCHAR" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="BIGINT" />
+    <result column="unit_price" property="unitPrice" jdbcType="NUMERIC" />
+    <result column="remark" property="remark" jdbcType="NVARCHAR" />
+    <result column="unit_price_real" property="unitPriceReal" jdbcType="NUMERIC" />
+  </resultMap>
+</mapper>

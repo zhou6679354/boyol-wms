@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TWorkMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TWork" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="work_q_id" property="workQId" jdbcType="NVARCHAR" />
+    <result column="work_type" property="workType" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="pick_ref_number" property="pickRefNumber" jdbcType="NVARCHAR" />
+    <result column="priority" property="priority" jdbcType="NVARCHAR" />
+    <result column="date_due" property="dateDue" jdbcType="TIMESTAMP" />
+    <result column="time_due" property="timeDue" jdbcType="TIMESTAMP" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="from_location_id" property="fromLocationId" jdbcType="NVARCHAR" />
+    <result column="work_status" property="workStatus" jdbcType="NVARCHAR" />
+    <result column="qty" property="qty" jdbcType="DOUBLE" />
+    <result column="workers_required" property="workersRequired" jdbcType="INTEGER" />
+    <result column="workers_assigned" property="workersAssigned" jdbcType="INTEGER" />
+    <result column="zone" property="zone" jdbcType="NVARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="NVARCHAR" />
+    <result column="datetime_stamp" property="datetimeStamp" jdbcType="TIMESTAMP" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="expiration_date" property="expirationDate" jdbcType="TIMESTAMP" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="INTEGER" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="from_qty" property="from_qty" jdbcType="REAL" />
+    <result column="mantissa_location_id" property="mantissaLlocationId" jdbcType="NVARCHAR" />
+    <result column="mantissa_hu_id" property="mantissaHuId" jdbcType="NVARCHAR" />
+    <result column="mantissa_qty" property="mantissaQty" jdbcType="REAL" />
+    <result column="initial_sto_id" property="initial_sto_id" jdbcType="BIGINT" />
+    <result column="shipment_number" property="shipmentNumber" jdbcType="NVARCHAR" />
+    <result column="control_number" property="controlNumber" jdbcType="NVARCHAR" />
+    <result column="storage_type" property="storageType" jdbcType="BIGINT" />
+    <result column="tran_log_id" property="tranLogId" jdbcType="BIGINT" />
+    <result column="des_hu_id" property="desHuId" jdbcType="NVARCHAR" />
+  </resultMap>
+  <select id="queryTWorkByWhId" resultType="org.shrek.hadata.service.iwms.model.TWork"
+          parameterType="org.shrek.hadata.service.iwms.model.TWork">
+    select w.work_q_id as workQId,
+w.work_type as workType,
+w.description as description,
+w.pick_ref_number as pickRefNumber,
+w.priority as priority,
+w.date_due as dateDue,
+w.time_due as timeDue,
+w.item_number as itemNumber,
+i.description as itemName,
+w.wh_id as whId,
+i.client_code as clientCode,
+w.location_id as locationId,
+w.from_location_id as fromLocationId,
+w.work_status as workStatus,
+w.qty as qty,
+w.workers_required as workersRequired,
+w.workers_assigned as workersAssigned,
+w.zone as zone,
+w.employee_id as employeeId,
+w.datetime_stamp as datetimeStamp,
+w.lot_number as lotNumber,
+w.expiration_date as expirationDate,
+w.stored_attribute_id as storedAttributeId,
+w.hu_id as huId,
+w.from_qty as fromQty,
+w.mantissa_location_id as mantissaLocationId,
+w.mantissa_hu_id as mantissaHuId,
+w.mantissa_qty as mantissaQty,
+w.initial_sto_id as initialStoId,
+w.shipment_number as shipmentNumber,
+w.control_number as controlNumber,
+w.storage_type as storageType,
+w.tran_log_id as tranLogId,
+w.des_hu_id as desHuId
+from t_work_q w
+left join t_item_master i
+on i.item_number=w.item_number
+and w.wh_id=i.wh_id
+where w.wh_id=#{whId}
+and i.client_code=#{clientCode}
+    </select>
+</mapper>

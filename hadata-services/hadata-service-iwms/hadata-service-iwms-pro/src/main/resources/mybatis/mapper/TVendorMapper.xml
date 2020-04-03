@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.iwms.mapper.TVendorMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.iwms.model.TVendor" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="vendor_id" property="vendor_id" jdbcType="INTEGER" />
+    <result column="vendor_code" property="vendorCode" jdbcType="NVARCHAR" />
+    <result column="vendor_name" property="vendorName" jdbcType="NVARCHAR" />
+    <result column="inspection_flag" property="inspectionFlag" jdbcType="NVARCHAR" />
+    <result column="ownership_control" property="ownershipControl" jdbcType="NVARCHAR" />
+    <result column="audit_percent" property="auditPercent" jdbcType="INTEGER" />
+    <result column="vqm_profile" property="vqmProfile" jdbcType="NVARCHAR" />
+
+  </resultMap>
+  <select id="getVendorCode"  resultType="java.lang.String">
+        SELECT v.vendor_code
+        FROM t_vendor v
+
+    </select>
+</mapper>

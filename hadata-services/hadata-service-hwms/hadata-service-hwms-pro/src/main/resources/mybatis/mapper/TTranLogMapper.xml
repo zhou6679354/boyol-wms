@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.shrek.hadata.service.hwms.mapper.TTranLogMapper" >
+  <resultMap id="BaseResultMap" type="org.shrek.hadata.service.hwms.model.TranLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="tran_log_id" property="tranLogId" jdbcType="INTEGER" />
+    <result column="tran_type" property="tranType" jdbcType="NVARCHAR" />
+    <result column="description" property="description" jdbcType="NVARCHAR" />
+    <result column="start_tran_date" property="startTranDate" jdbcType="TIMESTAMP" />
+    <result column="start_tran_time" property="startTranTime" jdbcType="TIMESTAMP" />
+    <result column="end_tran_date" property="endTranDate" jdbcType="TIMESTAMP" />
+    <result column="end_tran_time" property="endTranTime" jdbcType="TIMESTAMP" />
+    <result column="employee_id" property="employeeId" jdbcType="NVARCHAR" />
+    <result column="control_number" property="controlNumber" jdbcType="NVARCHAR" />
+    <result column="line_number" property="lineNumber" jdbcType="INTEGER" />
+    <result column="control_number_2" property="controlNumber2" jdbcType="NVARCHAR" />
+    <result column="outside_id" property="outsideId" jdbcType="NVARCHAR" />
+    <result column="wh_id" property="whId" jdbcType="NVARCHAR" />
+    <result column="location_id" property="locationId" jdbcType="NVARCHAR" />
+    <result column="hu_id" property="huId" jdbcType="NVARCHAR" />
+    <result column="num_items" property="numItems" jdbcType="INTEGER" />
+    <result column="item_number" property="itemNumber" jdbcType="NVARCHAR" />
+    <result column="lot_number" property="lotNumber" jdbcType="NVARCHAR" />
+    <result column="uom" property="uom" jdbcType="NVARCHAR" />
+    <result column="tran_qty" property="tranQty" jdbcType="DOUBLE" />
+    <result column="wh_id_2" property="whId2" jdbcType="NVARCHAR" />
+    <result column="location_id_2" property="locationId2" jdbcType="NVARCHAR" />
+    <result column="verify_status" property="verifyStatus" jdbcType="NVARCHAR" />
+    <result column="employee_id_2" property="employeeId2" jdbcType="NVARCHAR" />
+    <result column="routing_code" property="routingCode" jdbcType="INTEGER" />
+    <result column="hu_id_2" property="huId2" jdbcType="NVARCHAR" />
+    <result column="return_disposition" property="returnDisposition" jdbcType="TIMESTAMP" />
+    <result column="elapsed_time" property="elapsedTime" jdbcType="INTEGER" />
+    <result column="source_storage_type" property="sourceStorageType" jdbcType="NVARCHAR" />
+    <result column="destination_storage_type" property="destinationStorageType" jdbcType="NVARCHAR" />
+    <result column="stored_attribute_id" property="storedAttributeId" jdbcType="BIGINT" />
+    <result column="generic_attribute_1" property="genericAttribute1" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_2" property="genericAttribute2" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_3" property="genericAttribute3" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_4" property="genericAttribute4" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_5" property="genericAttribute5" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_6" property="genericAttribute6" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_7" property="genericAttribute7" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_8" property="genericAttribute8" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_9" property="genericAttribute9" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_10" property="genericAttribute10" jdbcType="NVARCHAR" />
+    <result column="generic_attribute_11" property="genericAttribute11" jdbcType="NVARCHAR" />
+    <result column="generic_text1" property="genericText1" jdbcType="NVARCHAR" />
+    <result column="generic_text2" property="genericText2" jdbcType="NVARCHAR" />
+    <result column="generic_text3" property="genericText3" jdbcType="NVARCHAR" />
+    <result column="generic_text4" property="genericText4" jdbcType="NVARCHAR" />
+    <result column="generic_text5" property="genericText5" jdbcType="NVARCHAR" />
+    <result column="generic_float1" property="genericFloat1" jdbcType="DOUBLE" />
+    <result column="generic_float2" property="genericFloat2" jdbcType="DOUBLE" />
+    <result column="display_item_number" property="displayItemNumber" jdbcType="NVARCHAR" />
+    <result column="client_code" property="clientCode" jdbcType="NVARCHAR" />
+    <result column="trk_summary_id" property="trkSummaryId" jdbcType="INTEGER" />
+    <result column="tran_log_holding_id" property="tranLogHoldingId" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectTranLogInfo" parameterType="org.shrek.hadata.service.hwms.model.TranLog" resultType="org.shrek.hadata.service.hwms.model.TranLog">
+        select
+max(tran_log_id) as tranLogId,
+max(tran_type) as tranType,
+max(description) as description,
+max(start_tran_date) as startTranDate,
+max(start_tran_time) as startTranTime,
+max(end_tran_date) as endTranDate,
+max(end_tran_time) as endTranTime,
+max(employee_id) as employeeId,
+control_number as controlNumber,
+max(line_number) as lineNumber,
+control_number_2 as controlNumber_2,
+max(outside_id) as outsideId,
+max(wh_id) as whId,
+max(location_id) as locationId,
+max(hu_id) as huId,
+max(num_items) as numItems,
+item_number as itemNumber,
+lot_number as lotNumber,
+max(uom) as uom,
+sum(tran_qty) as tranQty,
+max(wh_id_2) as whId2,
+max(location_id_2) as locationId2,
+max(verify_status) as verifyStatus,
+max(employee_id_2) as employeeId2,
+max(routing_code) as routingCode,
+max(hu_id_2) as huId2,
+max(return_disposition) as returnDisposition,
+max(elapsed_time) as elapsedTime,
+max(source_storage_type) as sourceStorageType,
+max(destination_storage_type) as destinationStorageType,
+max(stored_attribute_id) as storedAttributeId,
+max(generic_attribute_1) as genericAttribute1,
+max(generic_attribute_2) as genericAttribute2,
+max(generic_attribute_3) as genericAttribute3,
+max(generic_attribute_4) as genericAttribute4,
+max(generic_attribute_5) as genericAttribute5,
+max(generic_attribute_6) as genericAttribute6,
+max(generic_attribute_7) as genericAttribute7,
+max(generic_attribute_8) as genericAttribute8,
+max(generic_attribute_9) as genericAttribute9,
+max(generic_attribute_10) as genericAttribute10,
+max(generic_attribute_11) as genericAttribute11,
+max(generic_text1) as genericText1,
+max(generic_text2) as genericText2,
+max(generic_text3) as genericText3,
+max(generic_text4) as genericText4,
+max(generic_text5) as genericText5,
+max(generic_float1) as genericFloat1,
+max(generic_float2) as genericFloat2,
+max(display_item_number) as displayItemNumber,
+max(client_code) as clientCode,
+max(trk_summary_id) as trk_summaryId,
+max(tran_log_holding_id) as tranLogHoldingId
+from t_tran_log
+where tran_type=#{tranType}
+and control_number=#{controlNumber}
+group by control_number,control_number_2,lot_number,item_number
+    </select>
+</mapper>
