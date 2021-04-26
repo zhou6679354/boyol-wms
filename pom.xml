@@ -26,7 +26,7 @@
     <properties>
         <spring.boot.dependencies>2.0.4.RELEASE</spring.boot.dependencies>
 
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons.beanutils.version>1.9.3</commons.beanutils.version>
         <taobao.sdk.version>1.0.3</taobao.sdk.version>
         <jingdong.sdk.version>2.0.0</jingdong.sdk.version>
