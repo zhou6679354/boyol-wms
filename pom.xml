@@ -45,7 +45,7 @@
 
         <jackson.jaxrs.xml.version>2.9.5</jackson.jaxrs.xml.version>
         <sqljdbc4.version>4.0</sqljdbc4.version>
-        <mysql.version>5.1.45</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <zookeeper.version>3.4.9</zookeeper.version>
         <lombok.version>1.16.20</lombok.version>
         <guava.version>18.0</guava.version>
